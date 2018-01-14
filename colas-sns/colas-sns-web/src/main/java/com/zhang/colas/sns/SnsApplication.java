@@ -1,5 +1,6 @@
 package com.zhang.colas.sns;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -11,6 +12,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 //开启定时任务
 //@EnableScheduling
 @SpringBootApplication
+@MapperScan(basePackages = "com.zhang.colas.sns.mapper")
 public class SnsApplication {
     public static void main(String[] args) {
 

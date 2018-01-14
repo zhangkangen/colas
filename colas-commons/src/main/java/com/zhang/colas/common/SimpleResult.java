@@ -1,4 +1,4 @@
-package com.zhang.colas.common.response;
+package com.zhang.colas.common;
 
 
 import java.io.Serializable;

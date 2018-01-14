@@ -54,8 +54,9 @@ public class QiniuUtils {
 
             Response response = uploadManager.put(stream, key, token, null, null);
             DefaultPutRet putRet = new Gson().fromJson(response.bodyString(), DefaultPutRet.class);
-            System.out.println(putRet.key);
-            System.out.println(putRet.hash);
+
+            return QiniuUploadResult.uploadOk(key, qiniuProperties.getPrefix() + "/" + key);
+
         } catch (QiniuException e) {
             e.printStackTrace();
         }

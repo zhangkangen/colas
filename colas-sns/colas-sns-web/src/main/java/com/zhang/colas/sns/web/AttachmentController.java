@@ -1,16 +1,17 @@
 package com.zhang.colas.sns.web;
 
-import com.zhang.colas.common.response.SimpleResult;
+import com.zhang.colas.sns.entity.Attachment;
+import com.zhang.colas.sns.entity.vo.QiniuUploadResult;
+import com.zhang.colas.sns.service.AttachmentService;
 import com.zhang.colas.sns.utils.QiniuUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.time.LocalDate;
-import java.util.UUID;
+import java.util.Date;
 
 /**
  * @author zxk
@@ -20,13 +21,29 @@ import java.util.UUID;
 @RequestMapping("attachment")
 public class AttachmentController {
 
+    @Autowired
+    private AttachmentService attachmentService;
+
     @RequestMapping("imageUpload")
     public String uploadImage(MultipartFile file) {
 
         InputStream stream = null;
         try {
             stream = file.getInputStream();
-            QiniuUtils.upload(stream, file.getOriginalFilename());
+            QiniuUploadResult result = QiniuUtils.upload(stream, file.getOriginalFilename());
+
+            Attachment attachment = new Attachment();
+            attachment.setAttachmentName(file.getOriginalFilename());
+            attachment.setAttachmentPath(result.getPath());
+            attachment.setAttachmentSize(file.getSize());
+            attachment.setAttachmentState(1);
+            attachment.setAttachmentSubffix("");
+            attachment.setAttachmentType(1);
+            attachment.setCreateBy(0);
+            attachment.setCreateTime(new Date());
+
+            Integer count = attachmentService.save(attachment);
+
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
