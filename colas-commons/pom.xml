@@ -11,5 +11,8 @@
 
     <artifactId>colas-commons</artifactId>
 
+    <dependencies>
+
+    </dependencies>
 
 </project>
