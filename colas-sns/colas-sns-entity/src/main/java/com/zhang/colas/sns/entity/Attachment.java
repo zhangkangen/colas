@@ -3,6 +3,11 @@ package com.zhang.colas.sns.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * 附件表
+ * @author zxk
+ * @date 2018-1-18 15:36:44
+ */
 public class Attachment implements Serializable {
     private Integer id;
 
