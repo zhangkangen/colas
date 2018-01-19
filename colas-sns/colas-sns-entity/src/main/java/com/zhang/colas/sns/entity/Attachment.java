@@ -1,8 +1,15 @@
 package com.zhang.colas.sns.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Attachment {
+/**
+ * @date 2018-01-20 00:43:51
+ * @author zxk
+ */
+public class Attachment implements Serializable {
+    private static final long serialVersionUID = -5998962890696128406L;
+
     private Integer id;
 
     private String attachmentName;

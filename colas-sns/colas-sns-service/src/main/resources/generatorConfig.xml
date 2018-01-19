@@ -38,7 +38,11 @@
             <property name="enableSubPackages" value="false"/>
         </javaClientGenerator>
 
-        <table tableName="c_attachment" domainObjectName="Attachment"
+        <!--<table tableName="c_attachment" domainObjectName="Attachment"
+               enableCountByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" enableUpdateByExample="false"
+               selectByExampleQueryId="false" />-->
+        <table tableName="m_feed" domainObjectName="Feed"
                enableCountByExample="false" enableDeleteByExample="false"
                enableSelectByExample="false" enableUpdateByExample="false"
                selectByExampleQueryId="false" />

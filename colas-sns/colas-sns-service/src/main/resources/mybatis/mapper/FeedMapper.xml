@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhang.colas.sns.mapper.FeedMapper">
+  <resultMap id="BaseResultMap" type="com.zhang.colas.sns.entity.Feed">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="feed_content" jdbcType="VARCHAR" property="feedContent" />
+    <result column="feed_img" jdbcType="VARCHAR" property="feedImg" />
+    <result column="feed_time" jdbcType="TIMESTAMP" property="feedTime" />
+    <result column="feed_type" jdbcType="INTEGER" property="feedType" />
+    <result column="feed_state" jdbcType="INTEGER" property="feedState" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_by" jdbcType="INTEGER" property="createBy" />
+    <result column="update_by" jdbcType="INTEGER" property="updateBy" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="is_valid" jdbcType="BIT" property="isValid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, feed_content, feed_img, feed_time, feed_type, feed_state, create_time, 
+    create_by, update_by, update_time, is_valid
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from m_feed
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from m_feed
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zhang.colas.sns.entity.Feed">
+    insert into m_feed (id, user_id, feed_content, 
+      feed_img, feed_time, feed_type, 
+      feed_state, create_time, create_by, 
+      update_by, update_time, is_valid
+      )
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{feedContent,jdbcType=VARCHAR}, 
+      #{feedImg,jdbcType=VARCHAR}, #{feedTime,jdbcType=TIMESTAMP}, #{feedType,jdbcType=INTEGER}, 
+      #{feedState,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{createBy,jdbcType=INTEGER}, 
+      #{updateBy,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, #{isValid,jdbcType=BIT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhang.colas.sns.entity.Feed">
+    insert into m_feed
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="feedContent != null">
+        feed_content,
+      </if>
+      <if test="feedImg != null">
+        feed_img,
+      </if>
+      <if test="feedTime != null">
+        feed_time,
+      </if>
+      <if test="feedType != null">
+        feed_type,
+      </if>
+      <if test="feedState != null">
+        feed_state,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="isValid != null">
+        is_valid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="feedContent != null">
+        #{feedContent,jdbcType=VARCHAR},
+      </if>
+      <if test="feedImg != null">
+        #{feedImg,jdbcType=VARCHAR},
+      </if>
+      <if test="feedTime != null">
+        #{feedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="feedType != null">
+        #{feedType,jdbcType=INTEGER},
+      </if>
+      <if test="feedState != null">
+        #{feedState,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=INTEGER},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isValid != null">
+        #{isValid,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhang.colas.sns.entity.Feed">
+    update m_feed
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="feedContent != null">
+        feed_content = #{feedContent,jdbcType=VARCHAR},
+      </if>
+      <if test="feedImg != null">
+        feed_img = #{feedImg,jdbcType=VARCHAR},
+      </if>
+      <if test="feedTime != null">
+        feed_time = #{feedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="feedType != null">
+        feed_type = #{feedType,jdbcType=INTEGER},
+      </if>
+      <if test="feedState != null">
+        feed_state = #{feedState,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=INTEGER},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isValid != null">
+        is_valid = #{isValid,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhang.colas.sns.entity.Feed">
+    update m_feed
+    set user_id = #{userId,jdbcType=INTEGER},
+      feed_content = #{feedContent,jdbcType=VARCHAR},
+      feed_img = #{feedImg,jdbcType=VARCHAR},
+      feed_time = #{feedTime,jdbcType=TIMESTAMP},
+      feed_type = #{feedType,jdbcType=INTEGER},
+      feed_state = #{feedState,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_by = #{createBy,jdbcType=INTEGER},
+      update_by = #{updateBy,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      is_valid = #{isValid,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
