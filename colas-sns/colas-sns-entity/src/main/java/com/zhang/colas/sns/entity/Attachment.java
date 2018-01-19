@@ -1,19 +1,13 @@
 package com.zhang.colas.sns.entity;
 
-import java.io.Serializable;
 import java.util.Date;
 
-/**
- * 附件表
- * @author zxk
- * @date 2018-1-18 15:36:44
- */
-public class Attachment implements Serializable {
+public class Attachment {
     private Integer id;
 
     private String attachmentName;
 
-    private String attachmentSubffix;
+    private String attachmentSuffix;
 
     private Long attachmentSize;
 
@@ -23,15 +17,11 @@ public class Attachment implements Serializable {
 
     private String tempName;
 
-    private Integer attachmentState;
+    private Boolean isValid;
 
     private Integer createBy;
 
     private Date createTime;
-
-    private Integer updateBy;
-
-    private Date updateTime;
 
     public Integer getId() {
         return id;
@@ -49,12 +39,12 @@ public class Attachment implements Serializable {
         this.attachmentName = attachmentName == null ? null : attachmentName.trim();
     }
 
-    public String getAttachmentSubffix() {
-        return attachmentSubffix;
+    public String getAttachmentSuffix() {
+        return attachmentSuffix;
     }
 
-    public void setAttachmentSubffix(String attachmentSubffix) {
-        this.attachmentSubffix = attachmentSubffix == null ? null : attachmentSubffix.trim();
+    public void setAttachmentSuffix(String attachmentSuffix) {
+        this.attachmentSuffix = attachmentSuffix == null ? null : attachmentSuffix.trim();
     }
 
     public Long getAttachmentSize() {
@@ -89,12 +79,12 @@ public class Attachment implements Serializable {
         this.tempName = tempName == null ? null : tempName.trim();
     }
 
-    public Integer getAttachmentState() {
-        return attachmentState;
+    public Boolean getIsValid() {
+        return isValid;
     }
 
-    public void setAttachmentState(Integer attachmentState) {
-        this.attachmentState = attachmentState;
+    public void setIsValid(Boolean isValid) {
+        this.isValid = isValid;
     }
 
     public Integer getCreateBy() {
@@ -112,21 +102,4 @@ public class Attachment implements Serializable {
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
-
-    public Integer getUpdateBy() {
-        return updateBy;
-    }
-
-    public void setUpdateBy(Integer updateBy) {
-        this.updateBy = updateBy;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
 }

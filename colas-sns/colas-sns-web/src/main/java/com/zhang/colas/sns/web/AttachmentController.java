@@ -4,6 +4,8 @@ import com.zhang.colas.sns.entity.Attachment;
 import com.zhang.colas.sns.entity.vo.QiniuUploadResult;
 import com.zhang.colas.sns.service.AttachmentService;
 import com.zhang.colas.sns.utils.QiniuUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +23,8 @@ import java.util.Date;
 @RequestMapping("attachment")
 public class AttachmentController {
 
+    private static Logger logger = LoggerFactory.getLogger(AttachmentController.class);
+
     @Autowired
     private AttachmentService attachmentService;
 
@@ -36,8 +40,7 @@ public class AttachmentController {
             attachment.setAttachmentName(file.getOriginalFilename());
             attachment.setAttachmentPath(result.getPath());
             attachment.setAttachmentSize(file.getSize());
-            attachment.setAttachmentState(1);
-            attachment.setAttachmentSubffix("");
+            attachment.setAttachmentSuffix("");
             attachment.setAttachmentType(1);
             attachment.setCreateBy(0);
             attachment.setCreateTime(new Date());
@@ -45,7 +48,9 @@ public class AttachmentController {
             Integer count = attachmentService.save(attachment);
 
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
         } finally {
             try {
                 stream.close();

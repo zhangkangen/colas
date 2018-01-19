@@ -4,20 +4,18 @@
   <resultMap id="BaseResultMap" type="com.zhang.colas.sns.entity.Attachment">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="attachment_name" jdbcType="VARCHAR" property="attachmentName" />
-    <result column="attachment_subffix" jdbcType="VARCHAR" property="attachmentSubffix" />
+    <result column="attachment_suffix" jdbcType="VARCHAR" property="attachmentSuffix" />
     <result column="attachment_size" jdbcType="BIGINT" property="attachmentSize" />
     <result column="attachment_type" jdbcType="INTEGER" property="attachmentType" />
     <result column="attachment_path" jdbcType="VARCHAR" property="attachmentPath" />
     <result column="temp_name" jdbcType="VARCHAR" property="tempName" />
-    <result column="attachment_state" jdbcType="INTEGER" property="attachmentState" />
+    <result column="is_valid" jdbcType="BIT" property="isValid" />
     <result column="create_by" jdbcType="INTEGER" property="createBy" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_by" jdbcType="INTEGER" property="updateBy" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, attachment_name, attachment_subffix, attachment_size, attachment_type, attachment_path, 
-    temp_name, attachment_state, create_by, create_time, update_by, update_time
+    id, attachment_name, attachment_suffix, attachment_size, attachment_type, attachment_path, 
+    temp_name, is_valid, create_by, create_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -30,14 +28,14 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.zhang.colas.sns.entity.Attachment">
-    insert into c_attachment (id, attachment_name, attachment_subffix, 
+    insert into c_attachment (id, attachment_name, attachment_suffix, 
       attachment_size, attachment_type, attachment_path, 
-      temp_name, attachment_state, create_by, 
-      create_time, update_by, update_time)
-    values (#{id,jdbcType=INTEGER}, #{attachmentName,jdbcType=VARCHAR}, #{attachmentSubffix,jdbcType=VARCHAR}, 
+      temp_name, is_valid, create_by, 
+      create_time)
+    values (#{id,jdbcType=INTEGER}, #{attachmentName,jdbcType=VARCHAR}, #{attachmentSuffix,jdbcType=VARCHAR}, 
       #{attachmentSize,jdbcType=BIGINT}, #{attachmentType,jdbcType=INTEGER}, #{attachmentPath,jdbcType=VARCHAR}, 
-      #{tempName,jdbcType=VARCHAR}, #{attachmentState,jdbcType=INTEGER}, #{createBy,jdbcType=INTEGER}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP})
+      #{tempName,jdbcType=VARCHAR}, #{isValid,jdbcType=BIT}, #{createBy,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.zhang.colas.sns.entity.Attachment">
     insert into c_attachment
@@ -48,8 +46,8 @@
       <if test="attachmentName != null">
         attachment_name,
       </if>
-      <if test="attachmentSubffix != null">
-        attachment_subffix,
+      <if test="attachmentSuffix != null">
+        attachment_suffix,
       </if>
       <if test="attachmentSize != null">
         attachment_size,
@@ -63,8 +61,8 @@
       <if test="tempName != null">
         temp_name,
       </if>
-      <if test="attachmentState != null">
-        attachment_state,
+      <if test="isValid != null">
+        is_valid,
       </if>
       <if test="createBy != null">
         create_by,
@@ -72,13 +70,6 @@
       <if test="createTime != null">
         create_time,
       </if>
-      <if test="updateBy != null">
-        update_by,
-      </if>
-      <if test="updateTime != null">
-        update_time,
-      </if>
-
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -87,8 +78,8 @@
       <if test="attachmentName != null">
         #{attachmentName,jdbcType=VARCHAR},
       </if>
-      <if test="attachmentSubffix != null">
-        #{attachmentSubffix,jdbcType=VARCHAR},
+      <if test="attachmentSuffix != null">
+        #{attachmentSuffix,jdbcType=VARCHAR},
       </if>
       <if test="attachmentSize != null">
         #{attachmentSize,jdbcType=BIGINT},
@@ -102,20 +93,14 @@
       <if test="tempName != null">
         #{tempName,jdbcType=VARCHAR},
       </if>
-      <if test="attachmentState != null">
-        #{attachmentState,jdbcType=INTEGER},
+      <if test="isValid != null">
+        #{isValid,jdbcType=BIT},
       </if>
       <if test="createBy != null">
         #{createBy,jdbcType=INTEGER},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateBy != null">
-        #{updateBy,jdbcType=INTEGER},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -125,8 +110,8 @@
       <if test="attachmentName != null">
         attachment_name = #{attachmentName,jdbcType=VARCHAR},
       </if>
-      <if test="attachmentSubffix != null">
-        attachment_subffix = #{attachmentSubffix,jdbcType=VARCHAR},
+      <if test="attachmentSuffix != null">
+        attachment_suffix = #{attachmentSuffix,jdbcType=VARCHAR},
       </if>
       <if test="attachmentSize != null">
         attachment_size = #{attachmentSize,jdbcType=BIGINT},
@@ -140,8 +125,8 @@
       <if test="tempName != null">
         temp_name = #{tempName,jdbcType=VARCHAR},
       </if>
-      <if test="attachmentState != null">
-        attachment_state = #{attachmentState,jdbcType=INTEGER},
+      <if test="isValid != null">
+        is_valid = #{isValid,jdbcType=BIT},
       </if>
       <if test="createBy != null">
         create_by = #{createBy,jdbcType=INTEGER},
@@ -149,28 +134,20 @@
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="updateBy != null">
-        update_by = #{updateBy,jdbcType=INTEGER},
-      </if>
-      <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.zhang.colas.sns.entity.Attachment">
     update c_attachment
     set attachment_name = #{attachmentName,jdbcType=VARCHAR},
-      attachment_subffix = #{attachmentSubffix,jdbcType=VARCHAR},
+      attachment_suffix = #{attachmentSuffix,jdbcType=VARCHAR},
       attachment_size = #{attachmentSize,jdbcType=BIGINT},
       attachment_type = #{attachmentType,jdbcType=INTEGER},
       attachment_path = #{attachmentPath,jdbcType=VARCHAR},
       temp_name = #{tempName,jdbcType=VARCHAR},
-      attachment_state = #{attachmentState,jdbcType=INTEGER},
+      is_valid = #{isValid,jdbcType=BIT},
       create_by = #{createBy,jdbcType=INTEGER},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_by = #{updateBy,jdbcType=INTEGER},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
+      create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
