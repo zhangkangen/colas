@@ -30,10 +30,6 @@ public class Feed  implements Serializable{
 
     private Integer createBy;
 
-    private Integer updateBy;
-
-    private Date updateTime;
-
     private Boolean isValid;
 
     public Integer getId() {
@@ -106,22 +102,6 @@ public class Feed  implements Serializable{
 
     public void setCreateBy(Integer createBy) {
         this.createBy = createBy;
-    }
-
-    public Integer getUpdateBy() {
-        return updateBy;
-    }
-
-    public void setUpdateBy(Integer updateBy) {
-        this.updateBy = updateBy;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
     }
 
     public Boolean getIsValid() {
