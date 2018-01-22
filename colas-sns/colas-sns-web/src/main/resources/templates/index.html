@@ -3,14 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
 </head>
 <body>
+index.html
 
-<form action="/attachment/imageUpload" method="post" enctype="multipart/form-data" >
-    <input type="file" name="file">
-    <input type="submit"value="提交">
-</form>
+<script src="/plugins/sockjs/dist/sockjs.js"></script>
+<script src="/plugins/stomp/lib/stomp.js"></script>
 <script>
+    var stompClient = null;
+    function connect() {
+        var socket = new SockJS('')////连接服务端的端点，连接以后才可以订阅广播消息和个人消息
+        stompClient = Stomp.over(socket);
+        stompClient.connect({},function (frame) {
+            //广播消息
+            stompClient.subscribe('',function (message) {
+
+            })
+
+            //点对点消息
+            stompClient.connect({},function (message) {
+
+            })
+        })
+    }
+
+    function disconnect() {
+        if (stompClient != null) {
+            stompClient.disconnect();
+            console.log("Disconnected");
+        }
+    }
 
 </script>
 </body>

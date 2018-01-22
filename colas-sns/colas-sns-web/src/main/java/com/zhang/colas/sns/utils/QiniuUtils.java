@@ -10,18 +10,23 @@ import com.qiniu.util.Auth;
 import com.zhang.colas.sns.config.QiniuProperties;
 import com.zhang.colas.sns.entity.vo.QiniuUploadResult;
 import org.apache.commons.io.FilenameUtils;
+import org.springframework.core.SpringProperties;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.sound.midi.Soundbank;
 import java.io.InputStream;
+import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Properties;
 import java.util.UUID;
 
 @Component
 public class QiniuUtils {
+
+    private static final String PROPERTIES_RESOURCE_LOCATION = "spring.properties";
 
     @Resource
     private QiniuProperties qiniuPropertiesAutowired;
@@ -29,6 +34,23 @@ public class QiniuUtils {
     private static QiniuProperties qiniuProperties;
 
     private static String token;
+
+    private static Properties localProperties = new Properties();
+
+    static {
+        try {
+            ClassLoader cl = SpringProperties.class.getClassLoader();
+            URL url = cl != null ? cl.getResource(PROPERTIES_RESOURCE_LOCATION) : ClassLoader.getSystemResource(PROPERTIES_RESOURCE_LOCATION);
+            InputStream is = url.openStream();
+            try {
+                localProperties.load(is);
+            } finally {
+                is.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     @PostConstruct
     public void init() {
