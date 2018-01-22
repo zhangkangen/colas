@@ -26,7 +26,7 @@ import java.util.UUID;
 @Component
 public class QiniuUtils {
 
-    private static final String PROPERTIES_RESOURCE_LOCATION = "spring.properties";
+    private static final String PROPERTIES_RESOURCE_LOCATION = "config/qiniu.properties";
 
     @Resource
     private QiniuProperties qiniuPropertiesAutowired;
