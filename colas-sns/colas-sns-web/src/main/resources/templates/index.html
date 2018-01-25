@@ -7,23 +7,22 @@
 </head>
 <body>
 index.html
+<button onclick="send();">send</button>
 <img src="/captcha" alt="">
+<script src="/webjarslocator/jquery/jquery.js"></script>
 <script src="/plugins/sockjs/dist/sockjs.js"></script>
 <script src="/plugins/stomp/lib/stomp.js"></script>
+
 <script>
     var stompClient = null;
     function connect() {
-        var socket = new SockJS('')////连接服务端的端点，连接以后才可以订阅广播消息和个人消息
+        var socket = new SockJS('/endpoint')////连接服务端的端点，连接以后才可以订阅广播消息和个人消息
         stompClient = Stomp.over(socket);
         stompClient.connect({},function (frame) {
             //广播消息
-            stompClient.subscribe('',function (message) {
-
-            })
-
-            //点对点消息
-            stompClient.connect({},function (message) {
-
+            stompClient.subscribe('/topic/getResponse',function (message) {
+              alert(JSON.stringify(message));
+              alert(message.body)
             })
         })
     }
@@ -34,6 +33,19 @@ index.html
             console.log("Disconnected");
         }
     }
+
+    function send() {
+        if(stompClient){
+            stompClient.send('/say',{},JSON.stringify({userId:1}));
+        }else {
+            alert('连接没有创建')
+        }
+    }
+
+    $(function () {
+        connect();
+
+    })
 
 </script>
 </body>
