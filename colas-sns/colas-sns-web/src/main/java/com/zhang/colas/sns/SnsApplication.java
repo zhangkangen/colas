@@ -16,9 +16,6 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 public class SnsApplication {
     public static void main(String[] args) {
 
-        //SpringApplication.run(SnsApplication.class, args);
-        new SpringApplicationBuilder(SnsApplication.class)
-                .properties("spring.config.name=application,config/qiniu")
-                .run(args);
+        SpringApplication.run(SnsApplication.class, args);
     }
 }

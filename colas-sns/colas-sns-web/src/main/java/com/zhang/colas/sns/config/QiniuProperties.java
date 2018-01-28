@@ -4,8 +4,6 @@ package com.zhang.colas.sns.config;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
-@ConfigurationProperties(prefix = "qiniu.oss")
 public class QiniuProperties {
 
     private String accessKey;

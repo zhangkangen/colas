@@ -28,9 +28,6 @@ public class QiniuUtils {
 
     private static final String PROPERTIES_RESOURCE_LOCATION = "config/qiniu.properties";
 
-    @Resource
-    private QiniuProperties qiniuPropertiesAutowired;
-
     private static QiniuProperties qiniuProperties;
 
     private static String token;
@@ -44,6 +41,11 @@ public class QiniuUtils {
             InputStream is = url.openStream();
             try {
                 localProperties.load(is);
+                qiniuProperties = new QiniuProperties();
+                qiniuProperties.setAccessKey(localProperties.getProperty("qiniu.oss.accessKey"));
+                qiniuProperties.setSecretKey(localProperties.getProperty("qiniu.oss.secretKey"));
+                qiniuProperties.setBucket(localProperties.getProperty("qiniu.oss.bucket"));
+                qiniuProperties.setPrefix(localProperties.getProperty("qiniu.oss.prefix"));
             } finally {
                 is.close();
             }
@@ -54,12 +56,11 @@ public class QiniuUtils {
 
     @PostConstruct
     public void init() {
-        qiniuProperties = this.qiniuPropertiesAutowired;
         try {
             Auth auth = Auth.create(qiniuProperties.getAccessKey(), qiniuProperties.getSecretKey());
             token = auth.uploadToken(qiniuProperties.getBucket());
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
     }
 

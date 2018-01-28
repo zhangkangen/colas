@@ -42,10 +42,17 @@
                enableCountByExample="false" enableDeleteByExample="false"
                enableSelectByExample="false" enableUpdateByExample="false"
                selectByExampleQueryId="false" />-->
-        <table tableName="m_feed" domainObjectName="Feed"
+        <!--<table tableName="m_feed" domainObjectName="Feed"
+               enableCountByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" enableUpdateByExample="false"
+               selectByExampleQueryId="false" />-->
+        <!--<table tableName="s_user" domainObjectName="SUser"
+               enableCountByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" enableUpdateByExample="false"
+               selectByExampleQueryId="false" />-->
+        <table tableName="s_user_profile" domainObjectName="UserProfile"
                enableCountByExample="false" enableDeleteByExample="false"
                enableSelectByExample="false" enableUpdateByExample="false"
                selectByExampleQueryId="false" />
-
     </context>
 </generatorConfiguration>
