@@ -8,6 +8,7 @@ import com.zhang.colas.sns.mapper.UserProfileMapper;
 import com.zhang.colas.sns.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -29,6 +30,7 @@ public class AuthServiceImpl implements AuthService {
         return null;
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public SUser createUser(GithubUser githubUser) {
         SUser user = new SUser();
