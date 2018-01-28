@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Random;
@@ -40,6 +41,13 @@ public class ThirdController extends BaseController {
     @Value("${github.redirect_uri}")
     private String githubRedirectUri;
 
+    @Value("${weibo.client.id}")
+    private String weiboClientId;
+    @Value("${weibo.client.secret}")
+    private String weiboClientSecret;
+    @Value("${weibo.client.redirect.uri}")
+    private String weiboRedirectUri;
+
     @Autowired
     private AuthService authService;
 
@@ -56,7 +64,6 @@ public class ThirdController extends BaseController {
 
     @RequestMapping("github/connect")
     public String githubConnect(String code, String state) {
-        //todo 获取access_token
         System.out.println(code);
 
         String url =
@@ -64,10 +71,10 @@ public class ThirdController extends BaseController {
         String result = HttpClientUtils.doSimpleGet(url);
         LOGGER.info(result);
 
-        String access_token = StringUtils.split(result, ",")[0];
-
+        String access_token = StringUtils.split(result, "&")[0];
+        access_token = StringUtils.split(access_token,"=")[1];
         LOGGER.info(access_token);
-        String getUserUrl = String.format("https://api.github.com/user?%s", access_token);
+        String getUserUrl = String.format("https://api.github.com/user?access_token=%s", access_token);
 
         String userInfo = HttpClientUtils.doSimpleGet(getUserUrl);
 
@@ -78,9 +85,39 @@ public class ThirdController extends BaseController {
             user = authService.createUser(githubUser);
         }
 
-        request.getSession().setAttribute(Constants.SESSION_USER,user);
+        request.getSession().setAttribute(Constants.SESSION_USER, user);
         return "redirect:/mobile/index";
     }
 
+    @RequestMapping("weibo/login")
+    public String weiboLogin() {
+
+        String url = "http://q.51encounter.com/weibo/connect";
+        String redirectUrl = String.format("https://api.weibo.com/oauth2/authorize?client_id=%s&response_type=code&redirect_uri=%s", weiboClientId, url);
+        return "redirect:" + redirectUrl;
+    }
+
+    @RequestMapping("weibo/connect")
+    @ResponseBody
+    public String weiboConnect(String code) {
+
+        //https://api.weibo.com/oauth2/access_token?client_id=YOUR_CLIENT_ID&client_secret=YOUR_CLIENT_SECRET&grant_type=authorization_code&redirect_uri=YOUR_REGISTERED_REDIRECT_URI&code=CODE
+        String result = HttpClientUtils.doSimplePost(String.format("https://api.weibo.com/oauth2/access_token?client_id=%s&client_secret=%s&grant_type=authorization_code&redirect_uri=%s&code=%s", weiboClientId, weiboClientSecret, weiboRedirectUri, code), null);
+
+        LOGGER.info(result);
+        return code;
+    }
+
+    @RequestMapping("weibo/getInfo")
+    @ResponseBody
+    public String getWeiboInfo() {
+        String access_token = "2.00um5IuB058hQzbb8f2d84e9bhXynC";
+        String getInfoUrl = HttpClientUtils.doSimplePost(String.format("https://api.weibo.com/oauth2/get_token_info?access_token=%s", access_token), null);
+        String uid = "1745609560";
+        String url = String.format("https://api.weibo.com/2/users/show.json?access_token=%s&uid=%s", access_token, uid);
+        String result = HttpClientUtils.doSimpleGet(url);
+        LOGGER.info(result);
+        return result;
+    }
 
 }

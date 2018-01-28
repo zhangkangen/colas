@@ -32,8 +32,7 @@ public class HomeController extends BaseController {
     public String index(){
 
         SUser user = getSessionUser(request);
-        System.out.println(user.getId());
-        LOGGER.info(authService.toString());
+
         return "mobile/index";
     }
 }

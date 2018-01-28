@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.sound.midi.Soundbank;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.time.LocalDate;
@@ -74,14 +75,18 @@ public class QiniuUtils {
             String ext = FilenameUtils.getExtension(originalFilename);
             key = generatorName() + "." + ext;
 
-
             Response response = uploadManager.put(stream, key, token, null, null);
             DefaultPutRet putRet = new Gson().fromJson(response.bodyString(), DefaultPutRet.class);
-
             return QiniuUploadResult.uploadOk(key, qiniuProperties.getPrefix() + "/" + key);
 
         } catch (QiniuException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                stream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         return null;
     }

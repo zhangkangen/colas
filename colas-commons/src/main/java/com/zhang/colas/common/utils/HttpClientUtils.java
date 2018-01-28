@@ -126,15 +126,28 @@ public class HttpClientUtils {
 
         HttpGet httpGet = new HttpGet(url);
         CloseableHttpClient httpClient = getConnection();
+        CloseableHttpResponse response = null;
+
         try {
-            CloseableHttpResponse response = httpClient.execute(httpGet);
+            response = httpClient.execute(httpGet);
             int status = response.getStatusLine().getStatusCode();
             if (status >= 200 && status < 300) {
                 HttpEntity entity = response.getEntity();
-                return EntityUtils.toString(entity,"utf-8");
+                return EntityUtils.toString(entity, "utf-8");
+            } else {
+                HttpEntity entity = response.getEntity();
+                return EntityUtils.toString(entity, "utf-8");
             }
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (response != null) {
+                    response.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         return "";
     }
