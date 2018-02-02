@@ -29,6 +29,14 @@ public class SimpleResult implements Serializable {
         return result;
     }
 
+    public static SimpleResult responseOk(Object data,String msg){
+        SimpleResult result = new SimpleResult();
+        result.setSuccess(true);
+        result.setData(data);
+        result.setMsg(msg);
+        return result;
+    }
+
     public Boolean getSuccess() {
         return success;
     }

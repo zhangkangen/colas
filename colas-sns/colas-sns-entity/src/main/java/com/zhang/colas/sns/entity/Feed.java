@@ -18,10 +18,6 @@ public class Feed  implements Serializable{
 
     private String feedContent;
 
-    private String feedImg;
-
-    private Date feedTime;
-
     private Integer feedType;
 
     private Integer feedState;
@@ -54,22 +50,6 @@ public class Feed  implements Serializable{
 
     public void setFeedContent(String feedContent) {
         this.feedContent = feedContent == null ? null : feedContent.trim();
-    }
-
-    public String getFeedImg() {
-        return feedImg;
-    }
-
-    public void setFeedImg(String feedImg) {
-        this.feedImg = feedImg == null ? null : feedImg.trim();
-    }
-
-    public Date getFeedTime() {
-        return feedTime;
-    }
-
-    public void setFeedTime(Date feedTime) {
-        this.feedTime = feedTime;
     }
 
     public Integer getFeedType() {

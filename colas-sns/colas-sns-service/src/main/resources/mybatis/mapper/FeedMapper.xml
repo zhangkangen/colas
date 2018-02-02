@@ -5,8 +5,6 @@
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="user_id" jdbcType="INTEGER" property="userId"/>
         <result column="feed_content" jdbcType="VARCHAR" property="feedContent"/>
-        <result column="feed_img" jdbcType="VARCHAR" property="feedImg"/>
-        <result column="feed_time" jdbcType="TIMESTAMP" property="feedTime"/>
         <result column="feed_type" jdbcType="INTEGER" property="feedType"/>
         <result column="feed_state" jdbcType="INTEGER" property="feedState"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
@@ -14,7 +12,7 @@
         <result column="is_valid" jdbcType="BIT" property="isValid"/>
     </resultMap>
     <sql id="Base_Column_List">
-        id, user_id, feed_content, feed_img, feed_time, feed_type, feed_state, create_time,
+        id, user_id, feed_content, feed_type, feed_state, create_time,
         create_by, is_valid
     </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -136,12 +134,6 @@
             <if test="feedContent != null">
                 feed_content = #{feedContent,jdbcType=VARCHAR},
             </if>
-            <if test="feedImg != null">
-                feed_img = #{feedImg,jdbcType=VARCHAR},
-            </if>
-            <if test="feedTime != null">
-                feed_time = #{feedTime,jdbcType=TIMESTAMP},
-            </if>
             <if test="feedType != null">
                 feed_type = #{feedType,jdbcType=INTEGER},
             </if>
@@ -164,8 +156,6 @@
         UPDATE m_feed
         SET user_id      = #{userId,jdbcType=INTEGER},
             feed_content = #{feedContent,jdbcType=VARCHAR},
-            feed_img     = #{feedImg,jdbcType=VARCHAR},
-            feed_time    = #{feedTime,jdbcType=TIMESTAMP},
             feed_type    = #{feedType,jdbcType=INTEGER},
             feed_state   = #{feedState,jdbcType=INTEGER},
             create_time  = #{createTime,jdbcType=TIMESTAMP},

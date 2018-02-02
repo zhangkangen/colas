@@ -109,7 +109,10 @@
             <artifactId>commons-lang3</artifactId>
             <version>3.6</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+        </dependency>
 
     </dependencies>
     <!--配置仓库的位置 可以从不同的仓库进行下载 -->
@@ -164,14 +167,6 @@
             <id>sourceforge-releases</id>
             <name>Sourceforge Releases</name>
             <url>https://oss.sonatype.org/content/repositories/sourceforge-releases/</url>
-        </repository>
-        <repository>
-            <id>opensesame</id>
-            <name>Alibaba OpenSource Repsoitory</name>
-            <url>http://code.alibabatech.com/mvn/releases/</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
         </repository>
     </repositories>
     <build>

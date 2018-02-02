@@ -16,4 +16,9 @@ public class AttachmentServiceImpl implements AttachmentService {
     public Integer save(Attachment attachment) {
         return attachmentMapper.insert(attachment);
     }
+
+    @Override
+    public Attachment getById(Integer id) {
+        return attachmentMapper.selectByPrimaryKey(id);
+    }
 }
