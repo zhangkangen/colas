@@ -18,6 +18,9 @@
         <module>colas-commons</module>
         <module>colas-core</module>
         <module>colas-sns</module>
+        <module>colas-yyg</module>
+        <module>colas-shop</module>
+        <module>colas-blog</module>
         <!--<module>colas-qiniu</module>-->
     </modules>
     <properties>
@@ -109,10 +112,7 @@
             <artifactId>commons-lang3</artifactId>
             <version>3.6</version>
         </dependency>
-        <dependency>
-            <groupId>org.flywaydb</groupId>
-            <artifactId>flyway-core</artifactId>
-        </dependency>
+
 
     </dependencies>
     <!--配置仓库的位置 可以从不同的仓库进行下载 -->
