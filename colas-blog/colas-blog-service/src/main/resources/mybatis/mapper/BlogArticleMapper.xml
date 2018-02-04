@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhang.colas.blog.mapper.BlogArticleMapper">
+  <resultMap id="BaseResultMap" type="com.zhang.colas.blog.entity.BlogArticle">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="cover_img" jdbcType="VARCHAR" property="coverImg" />
+    <result column="memo" jdbcType="VARCHAR" property="memo" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="publish_time" jdbcType="TIMESTAMP" property="publishTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="article_type" jdbcType="INTEGER" property="articleType" />
+    <result column="article_status" jdbcType="INTEGER" property="articleStatus" />
+    <result column="read_count" jdbcType="INTEGER" property="readCount" />
+    <result column="up_vote" jdbcType="INTEGER" property="upVote" />
+    <result column="comment_count" jdbcType="INTEGER" property="commentCount" />
+    <result column="create_by" jdbcType="INTEGER" property="createBy" />
+    <result column="is_valid" jdbcType="BIT" property="isValid" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.zhang.colas.blog.entity.BlogArticle">
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, title, cover_img, memo, create_time, publish_time, update_time, article_type, 
+    article_status, read_count, up_vote, comment_count, create_by, is_valid
+  </sql>
+  <sql id="Blob_Column_List">
+    content
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from blog_article
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from blog_article
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zhang.colas.blog.entity.BlogArticle">
+    insert into blog_article (id, title, cover_img, 
+      memo, create_time, publish_time, 
+      update_time, article_type, article_status, 
+      read_count, up_vote, comment_count, 
+      create_by, is_valid, content
+      )
+    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{coverImg,jdbcType=VARCHAR}, 
+      #{memo,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{publishTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{articleType,jdbcType=INTEGER}, #{articleStatus,jdbcType=INTEGER}, 
+      #{readCount,jdbcType=INTEGER}, #{upVote,jdbcType=INTEGER}, #{commentCount,jdbcType=INTEGER}, 
+      #{createBy,jdbcType=INTEGER}, #{isValid,jdbcType=BIT}, #{content,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhang.colas.blog.entity.BlogArticle">
+    insert into blog_article
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="coverImg != null">
+        cover_img,
+      </if>
+      <if test="memo != null">
+        memo,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="publishTime != null">
+        publish_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="articleType != null">
+        article_type,
+      </if>
+      <if test="articleStatus != null">
+        article_status,
+      </if>
+      <if test="readCount != null">
+        read_count,
+      </if>
+      <if test="upVote != null">
+        up_vote,
+      </if>
+      <if test="commentCount != null">
+        comment_count,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="isValid != null">
+        is_valid,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="coverImg != null">
+        #{coverImg,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null">
+        #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="publishTime != null">
+        #{publishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="articleType != null">
+        #{articleType,jdbcType=INTEGER},
+      </if>
+      <if test="articleStatus != null">
+        #{articleStatus,jdbcType=INTEGER},
+      </if>
+      <if test="readCount != null">
+        #{readCount,jdbcType=INTEGER},
+      </if>
+      <if test="upVote != null">
+        #{upVote,jdbcType=INTEGER},
+      </if>
+      <if test="commentCount != null">
+        #{commentCount,jdbcType=INTEGER},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=INTEGER},
+      </if>
+      <if test="isValid != null">
+        #{isValid,jdbcType=BIT},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhang.colas.blog.entity.BlogArticle">
+    update blog_article
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="coverImg != null">
+        cover_img = #{coverImg,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null">
+        memo = #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="publishTime != null">
+        publish_time = #{publishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="articleType != null">
+        article_type = #{articleType,jdbcType=INTEGER},
+      </if>
+      <if test="articleStatus != null">
+        article_status = #{articleStatus,jdbcType=INTEGER},
+      </if>
+      <if test="readCount != null">
+        read_count = #{readCount,jdbcType=INTEGER},
+      </if>
+      <if test="upVote != null">
+        up_vote = #{upVote,jdbcType=INTEGER},
+      </if>
+      <if test="commentCount != null">
+        comment_count = #{commentCount,jdbcType=INTEGER},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=INTEGER},
+      </if>
+      <if test="isValid != null">
+        is_valid = #{isValid,jdbcType=BIT},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zhang.colas.blog.entity.BlogArticle">
+    update blog_article
+    set title = #{title,jdbcType=VARCHAR},
+      cover_img = #{coverImg,jdbcType=VARCHAR},
+      memo = #{memo,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      publish_time = #{publishTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      article_type = #{articleType,jdbcType=INTEGER},
+      article_status = #{articleStatus,jdbcType=INTEGER},
+      read_count = #{readCount,jdbcType=INTEGER},
+      up_vote = #{upVote,jdbcType=INTEGER},
+      comment_count = #{commentCount,jdbcType=INTEGER},
+      create_by = #{createBy,jdbcType=INTEGER},
+      is_valid = #{isValid,jdbcType=BIT},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhang.colas.blog.entity.BlogArticle">
+    update blog_article
+    set title = #{title,jdbcType=VARCHAR},
+      cover_img = #{coverImg,jdbcType=VARCHAR},
+      memo = #{memo,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      publish_time = #{publishTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      article_type = #{articleType,jdbcType=INTEGER},
+      article_status = #{articleStatus,jdbcType=INTEGER},
+      read_count = #{readCount,jdbcType=INTEGER},
+      up_vote = #{upVote,jdbcType=INTEGER},
+      comment_count = #{commentCount,jdbcType=INTEGER},
+      create_by = #{createBy,jdbcType=INTEGER},
+      is_valid = #{isValid,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

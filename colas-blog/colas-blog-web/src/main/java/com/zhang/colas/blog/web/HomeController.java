@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class HomeController {
 
     @GetMapping({"","index"})
-    @ResponseBody
     public String index(){
         return "index";
     }

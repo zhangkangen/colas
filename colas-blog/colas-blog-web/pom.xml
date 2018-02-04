@@ -10,7 +10,24 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>colas-blog-web</artifactId>
+    <properties>
+    </properties>
     <dependencies>
+        <dependency>
+            <groupId>com.zhang</groupId>
+            <artifactId>colas-commons</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.zhang</groupId>
+            <artifactId>colas-blog-entity</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.zhang</groupId>
+            <artifactId>colas-blog-service</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
@@ -20,6 +37,7 @@
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
         </dependency>
+
     </dependencies>
     <build>
         <plugins>

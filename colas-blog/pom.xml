@@ -13,5 +13,7 @@
 
     <modules>
         <module>colas-blog-web</module>
+        <module>colas-blog-service</module>
+        <module>colas-blog-entity</module>
     </modules>
 </project>
