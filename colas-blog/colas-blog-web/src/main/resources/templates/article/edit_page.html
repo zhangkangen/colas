@@ -19,9 +19,9 @@
     <link rel="stylesheet" href="/plugins/summernote-0.8.9/dist/summernote.css">
 
     <style>
-        .btn-default{
+        .btn-default {
             background-color: #fff;
-            color:#333;
+            color: #333;
             border-color: #ccc;
         }
     </style>
@@ -92,10 +92,37 @@
     $(document).ready(function () {
 
         $('.summernote').summernote({
-            lang:'zh-CN',
-            height:300
+            lang: 'zh-CN',
+            height: 300,
+            callbacks: {
+                onImageUpload: function (files, editor, welEditable) {
+                    sendFile(files, editor, welEditable);
+                }
+            }
         })
     });
+
+    function sendFile(files, editor, welEditable) {
+
+        var data = new FormData();
+        $.each(files,function (idx, val) {
+            data.append("files", val);
+        })
+
+        $.ajax({
+            url: '/upload/uploadImg',
+            type: 'POST',
+            data: data,
+            dataType: 'json',
+            contentType: false,
+            cache: false,
+            processData: false,
+            success: function (res) {
+                alert(JSON.stringify(res))
+            }
+        })
+        console.log(files)
+    }
 
     $(document).ready(function () {
         var e = "<i class='fa fa-times-circle'></i> ";
@@ -106,15 +133,15 @@
             messages: {
                 firstname: e + "请输入你的姓",
             },
-            submitHandler:function(form){
+            submitHandler: function (form) {
 
                 console.log($('#signupForm').serialize())
                 var data = $('#signupForm').serialize();
                 $.ajax({
-                    url:'/article/save',
-                    type:'POST',
-                    data:data,
-                    success:function (res) {
+                    url: '/article/save',
+                    type: 'POST',
+                    data: data,
+                    success: function (res) {
                         alert(JSON.stringify(res))
                     }
                 })
