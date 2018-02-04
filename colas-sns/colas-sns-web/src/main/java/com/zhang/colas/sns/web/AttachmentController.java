@@ -1,15 +1,13 @@
 package com.zhang.colas.sns.web;
 
 import com.zhang.colas.common.SimpleResult;
+import com.zhang.colas.core.entity.QiniuUploadResult;
+import com.zhang.colas.core.utils.QiniuUtils;
 import com.zhang.colas.sns.entity.Attachment;
-import com.zhang.colas.sns.entity.vo.QiniuUploadResult;
 import com.zhang.colas.sns.service.AttachmentService;
-import com.zhang.colas.sns.utils.QiniuUtils;
-import org.apache.http.entity.BasicHttpEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
