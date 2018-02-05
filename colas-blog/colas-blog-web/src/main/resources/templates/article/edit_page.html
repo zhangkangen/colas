@@ -118,10 +118,15 @@
             cache: false,
             processData: false,
             success: function (res) {
-                alert(JSON.stringify(res))
+                if(res.success){
+                    var data = res.data;
+                    $.each(data,function (i, v) {
+                        console.log(v)
+                        $('.summernote').summernote('insertImage',v.path,v.name);
+                    })
+                }
             }
         })
-        console.log(files)
     }
 
     $(document).ready(function () {

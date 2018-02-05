@@ -68,6 +68,7 @@ public class QiniuUtils {
 
             Response response = uploadManager.put(stream, key, token, null, null);
             DefaultPutRet putRet = new Gson().fromJson(response.bodyString(), DefaultPutRet.class);
+
             return QiniuUploadResult.uploadOk(key, qiniuProperties.getPrefix() + "/" + key);
 
         } catch (QiniuException e) {
@@ -80,6 +81,10 @@ public class QiniuUtils {
             }
         }
         return null;
+    }
+
+    public static String getUrlPrefix(){
+        return qiniuProperties.getPrefix();
     }
 
     private static String generatorName() {
