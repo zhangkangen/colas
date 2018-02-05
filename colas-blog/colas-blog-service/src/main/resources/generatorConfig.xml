@@ -38,7 +38,7 @@
             <property name="enableSubPackages" value="false"/>
         </javaClientGenerator>
 
-        <table tableName="blog_article" domainObjectName="BlogArticle"
+        <!--<table tableName="blog_article" domainObjectName="BlogArticle"
                enableCountByExample="false" enableDeleteByExample="false"
                enableSelectByExample="false" enableUpdateByExample="false"
                selectByExampleQueryId="false" />
@@ -55,6 +55,14 @@
                enableSelectByExample="false" enableUpdateByExample="false"
                selectByExampleQueryId="false" />
         <table tableName="blog_user" domainObjectName="BlogUser"
+               enableCountByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" enableUpdateByExample="false"
+               selectByExampleQueryId="false" />-->
+        <table tableName="c_attachment" domainObjectName="Attachment"
+               enableCountByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" enableUpdateByExample="false"
+               selectByExampleQueryId="false" />
+        <table tableName="c_attachment_relation" domainObjectName="AttachmentRelation"
                enableCountByExample="false" enableDeleteByExample="false"
                enableSelectByExample="false" enableUpdateByExample="false"
                selectByExampleQueryId="false" />
