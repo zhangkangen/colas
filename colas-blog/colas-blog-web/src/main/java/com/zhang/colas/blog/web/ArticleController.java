@@ -1,5 +1,7 @@
 package com.zhang.colas.blog.web;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 import com.zhang.colas.blog.entity.BlogArticle;
 import com.zhang.colas.blog.service.ArticleService;
 import com.zhang.colas.common.SimpleResult;
@@ -8,10 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author zxk
@@ -25,8 +24,23 @@ public class ArticleController extends BaseController {
     private ArticleService articleService;
 
     @GetMapping({"index", ""})
-    public String index() {
+    public String index(@RequestParam(value = "pageNum", required = true, defaultValue = "1") Integer pageNum,
+                        @RequestParam(value = "pageSize", required = true, defaultValue = "10") Integer pageSize, Model model) {
+
+        PageInfo<BlogArticle> pageInfo = articleService.selectArticleListPage(pageNum, pageSize);
+
+        model.addAttribute("pageInfo", pageInfo);
+
         return "article/index";
+    }
+
+    @GetMapping("/{id}")
+    public String info(@PathVariable("id") Integer id, Model model) {
+
+        BlogArticle article = articleService.selectByPrimaryKey(id);
+        model.addAttribute("article", article);
+        return "article/article";
+
     }
 
     @GetMapping("editPage")
@@ -37,7 +51,7 @@ public class ArticleController extends BaseController {
 
     @PostMapping("save")
     @ResponseBody
-    public SimpleResult save(BlogArticle blogArticle){
+    public SimpleResult save(BlogArticle blogArticle) {
 
         return articleService.save(blogArticle);
     }

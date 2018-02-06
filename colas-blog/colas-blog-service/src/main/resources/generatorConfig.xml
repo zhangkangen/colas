@@ -16,9 +16,9 @@
             <property name="suppressAllComments" value="true"/>
         </commentGenerator>
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://localhost:3306/colas?useUnicode=true&amp;characterEncoding=UTF-8"
-                        userId="root"
-                        password="Zucking888">
+                        connectionURL="jdbc:mysql://160.124.33.22:3306/colas?useUnicode=true&amp;characterEncoding=UTF-8"
+                        userId="sns"
+                        password="123456">
         </jdbcConnection>
 
         <javaTypeResolver>

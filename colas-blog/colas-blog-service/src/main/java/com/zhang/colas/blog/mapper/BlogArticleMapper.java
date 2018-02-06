@@ -2,6 +2,8 @@ package com.zhang.colas.blog.mapper;
 
 import com.zhang.colas.blog.entity.BlogArticle;
 
+import java.util.List;
+
 public interface BlogArticleMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -16,4 +18,6 @@ public interface BlogArticleMapper {
     int updateByPrimaryKeyWithBLOBs(BlogArticle record);
 
     int updateByPrimaryKey(BlogArticle record);
+
+    List<BlogArticle> queryList();
 }

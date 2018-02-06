@@ -1,5 +1,7 @@
 package com.zhang.colas.blog.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.zhang.colas.blog.entity.BlogArticle;
 import com.zhang.colas.blog.mapper.BlogArticleMapper;
 import com.zhang.colas.blog.service.ArticleService;
@@ -16,6 +18,41 @@ public class ArticleServiceImpl implements ArticleService {
     private BlogArticleMapper articleMapper;
 
     @Override
+    public int deleteByPrimaryKey(Integer id) {
+        return articleMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public int insert(BlogArticle record) {
+        return articleMapper.insert(record);
+    }
+
+    @Override
+    public int insertSelective(BlogArticle record) {
+        return articleMapper.insertSelective(record);
+    }
+
+    @Override
+    public BlogArticle selectByPrimaryKey(Integer id) {
+        return articleMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public int updateByPrimaryKeySelective(BlogArticle record) {
+        return articleMapper.updateByPrimaryKeySelective(record);
+    }
+
+    @Override
+    public int updateByPrimaryKeyWithBLOBs(BlogArticle record) {
+        return articleMapper.updateByPrimaryKeyWithBLOBs(record);
+    }
+
+    @Override
+    public int updateByPrimaryKey(BlogArticle record) {
+        return articleMapper.updateByPrimaryKey(record);
+    }
+
+    @Override
     public SimpleResult save(BlogArticle blogArticle) {
 
         if (blogArticle.getId() != null) {
@@ -29,5 +66,13 @@ public class ArticleServiceImpl implements ArticleService {
             articleMapper.insertSelective(blogArticle);
         }
         return SimpleResult.responseOk("ok");
+    }
+
+    @Override
+    public PageInfo<BlogArticle> selectArticleListPage(int pageNum, int pageSize) {
+        PageInfo<BlogArticle> pageInfo = PageHelper
+                .startPage(pageNum,pageSize)
+                .doSelectPageInfo(()-> articleMapper.queryList());
+        return pageInfo;
     }
 }

@@ -6836,7 +6836,7 @@ body.skin-3 {
 
 .gohome {
     position: fixed;
-    top: 20px;
+    bottom: 50px;
     right: 20px;
     z-index: 100
 }

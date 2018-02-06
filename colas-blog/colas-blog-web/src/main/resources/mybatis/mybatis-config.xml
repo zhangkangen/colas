@@ -11,11 +11,11 @@
         打印查询语句 -->
         <setting name="logImpl" value="STDOUT_LOGGING" />
     </settings>
-
+<!--
     <plugins>
         <plugin interceptor="com.github.pagehelper.PageInterceptor">
             <property name="supportMethodsArguments" value="true"/>
             <property name="params" value="pageNum=pageNumKey;pageSize=pageSizeKey"/>
         </plugin>
-    </plugins>
+    </plugins>-->
 </configuration>
