@@ -12,7 +12,7 @@
     <modules>
         <module>colas-shop-web</module>
     </modules>
-    <artifactId>colas.shop</artifactId>
+    <artifactId>colas-shop</artifactId>
 
 
 </project>
