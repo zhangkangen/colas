@@ -1,5 +1,6 @@
 package com.zhang.colas.blog.config;
 
+import com.zhang.colas.blog.entity.BlogUser;
 import com.zhang.colas.blog.service.AuthService;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authc.credential.DefaultPasswordService;
@@ -22,6 +23,8 @@ public class MyShiroRealm extends AuthorizingRealm {
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
+
+        LOGGER.info("==== 权限校验 ====");
         return null;
     }
 
@@ -37,13 +40,19 @@ public class MyShiroRealm extends AuthorizingRealm {
 
         LOGGER.info("do myShiroRealm.AuthenticationInfo");
 
-        UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
+        try {
+            UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
 
-        String username = token.getUsername();
-        String password = new String(token.getPassword());
+            String username = token.getUsername();
 
-        LOGGER.info(passwordService.encryptPassword(password));
+            BlogUser user = authService.getUserByUsername(username);
 
-        return new SimpleAuthenticationInfo(username, password, getName());
+            if (user != null) {
+                return new SimpleAuthenticationInfo(username, user.getPassword(), getName());
+            }
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(), e);
+        }
+        return null;
     }
 }

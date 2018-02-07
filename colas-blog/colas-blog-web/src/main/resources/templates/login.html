@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
 
@@ -45,6 +45,7 @@
         </div>
         <div class="col-md-6">
             <div class="ibox-content">
+                <p th:if="${error!=null}" class="text-danger"><i class="fa fa-times-circle"></i><span th:text="${error}"></span></p>
                 <form class="m-t" role="form" method="post" action="/login">
                     <div class="form-group">
                         <input type="text" name="username" class="form-control" placeholder="Username" required="">

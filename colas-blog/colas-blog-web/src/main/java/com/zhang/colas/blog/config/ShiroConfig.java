@@ -1,6 +1,8 @@
 package com.zhang.colas.blog.config;
 
 
+import org.apache.shiro.authc.credential.PasswordMatcher;
+import org.apache.shiro.authc.credential.SimpleCredentialsMatcher;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
@@ -59,6 +61,7 @@ public class ShiroConfig {
     @Bean
     public MyShiroRealm myShiroRealm() {
         MyShiroRealm myShiroRealm = new MyShiroRealm();
+        myShiroRealm.setCredentialsMatcher(new PasswordMatcher());
         return myShiroRealm;
     }
 }
