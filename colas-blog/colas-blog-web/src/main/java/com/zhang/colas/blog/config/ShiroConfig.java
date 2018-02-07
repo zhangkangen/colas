@@ -2,11 +2,13 @@ package com.zhang.colas.blog.config;
 
 
 import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
+import com.zhang.colas.blog.filter.UserContextFilter;
 import org.apache.shiro.authc.credential.PasswordMatcher;
 import org.apache.shiro.authc.credential.SimpleCredentialsMatcher;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -16,6 +18,8 @@ import java.util.Map;
 @Configuration
 public class ShiroConfig {
 
+
+
     @Bean
     public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
 
@@ -24,7 +28,12 @@ public class ShiroConfig {
 
         shiroFilterFactoryBean.setSecurityManager(securityManager);
 
+        Map filterMap = shiroFilterFactoryBean.getFilters();
+        filterMap.put("userContext", userContextFilter());
+
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
+
+        shiroFilterFactoryBean.setFilters(filterMap);
 
         // 配置不会被拦截的链接 顺序判断
         filterChainDefinitionMap.put("/hplus4.1/**", "anon");
@@ -32,8 +41,8 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/plugins/**", "anon");
         filterChainDefinitionMap.put("/favicon.ico", "anon");
 
-        filterChainDefinitionMap.put("/index*/**","anon");
-        filterChainDefinitionMap.put("/","anon");
+        filterChainDefinitionMap.put("/index*/**", "anon");
+        filterChainDefinitionMap.put("/", "anon");
 
         //登陆注册相关
         filterChainDefinitionMap.put("/register*/**", "anon");
@@ -46,13 +55,19 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/article*/**", "anon");
 
 
-        filterChainDefinitionMap.put("/**", "authc");
+        filterChainDefinitionMap.put("/**", "authc,userContext");
 
         shiroFilterFactoryBean.setLoginUrl("/login");
         shiroFilterFactoryBean.setSuccessUrl("/index");
         shiroFilterFactoryBean.setUnauthorizedUrl("/403");
 
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
+
+
+
+
+
+
         return shiroFilterFactoryBean;
     }
 
@@ -60,6 +75,7 @@ public class ShiroConfig {
     public SecurityManager securityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setRealm(myShiroRealm());
+
         return securityManager;
     }
 
@@ -71,7 +87,12 @@ public class ShiroConfig {
     }
 
     @Bean
-    public ShiroDialect shiroDialect(){
+    public ShiroDialect shiroDialect() {
         return new ShiroDialect();
+    }
+
+    @Bean
+    public UserContextFilter userContextFilter(){
+        return new UserContextFilter();
     }
 }

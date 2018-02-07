@@ -3,9 +3,12 @@ package com.zhang.colas.blog.web;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import com.hankcs.hanlp.HanLP;
+import com.zhang.colas.blog.bind.annotation.CurrentUser;
 import com.zhang.colas.blog.entity.BlogArticle;
+import com.zhang.colas.blog.entity.BlogUser;
 import com.zhang.colas.blog.enums.ArticleTypeEnum;
 import com.zhang.colas.blog.service.ArticleService;
+import com.zhang.colas.blog.utils.Constants;
 import com.zhang.colas.common.SimpleResult;
 import com.zhang.colas.common.base.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -39,16 +43,18 @@ public class ArticleController extends BaseController {
     }
 
     @GetMapping("/{id}")
-    public String info(@PathVariable("id") Integer id, Model model) {
+    public String info(@PathVariable("id") Integer id, Model model, HttpServletRequest request) {
 
         BlogArticle article = articleService.selectByPrimaryKey(id);
         model.addAttribute("article", article);
+
         return "article/article";
 
     }
 
     @GetMapping("editPage")
-    public String editPage(Integer id, Model model) {
+    public String editPage(Integer id, @CurrentUser BlogUser user, Model model, HttpServletRequest request) {
+
         model.addAttribute("articleTypes", ArticleTypeEnum.values());
         return "article/edit";
     }
@@ -60,7 +66,7 @@ public class ArticleController extends BaseController {
 
         //todo 关键词提取
         //todo 文章摘要生成
-        List<String> memos = HanLP.extractSummary(blogArticle.getContent(),1,",");
+        List<String> memos = HanLP.extractSummary(blogArticle.getContent(), 1, ",");
 
         return SimpleResult.responseOk("ok");
         //return articleService.save(blogArticle);
