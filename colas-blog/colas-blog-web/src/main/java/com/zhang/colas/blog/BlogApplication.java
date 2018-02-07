@@ -3,6 +3,7 @@ package com.zhang.colas.blog;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * @date 2018-02-04 15:54:56
  */
 @SpringBootApplication
+@EnableScheduling
 @EnableTransactionManagement
 @MapperScan(basePackages = "com.zhang.colas.blog.mapper")
 public class BlogApplication {

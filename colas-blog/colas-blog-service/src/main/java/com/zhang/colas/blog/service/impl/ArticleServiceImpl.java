@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 @Transactional
@@ -77,5 +78,10 @@ public class ArticleServiceImpl implements ArticleService {
                 .startPage(pageNum,pageSize)
                 .doSelectPageInfo(()-> articleMapper.queryList());
         return pageInfo;
+    }
+
+    @Override
+    public List<BlogArticle> selectShallPublishArticleList(BlogArticle queryArticle) {
+        return articleMapper.selectShallPublishArticleList(queryArticle);
     }
 }
