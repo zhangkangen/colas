@@ -8,10 +8,12 @@ import com.zhang.colas.blog.service.ArticleService;
 import com.zhang.colas.common.SimpleResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 
 @Service
+@Transactional
 public class ArticleServiceImpl implements ArticleService {
 
     @Autowired
@@ -29,6 +31,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public int insertSelective(BlogArticle record) {
+        record.setCreateTime(new Date());
         return articleMapper.insertSelective(record);
     }
 

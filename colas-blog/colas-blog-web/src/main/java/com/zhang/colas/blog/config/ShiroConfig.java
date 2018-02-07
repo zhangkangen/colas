@@ -1,6 +1,7 @@
 package com.zhang.colas.blog.config;
 
 
+import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import org.apache.shiro.authc.credential.PasswordMatcher;
 import org.apache.shiro.authc.credential.SimpleCredentialsMatcher;
 import org.apache.shiro.mgt.SecurityManager;
@@ -27,8 +28,12 @@ public class ShiroConfig {
 
         // 配置不会被拦截的链接 顺序判断
         filterChainDefinitionMap.put("/hplus4.1/**", "anon");
+        filterChainDefinitionMap.put("/inspinia/**", "anon");
         filterChainDefinitionMap.put("/plugins/**", "anon");
         filterChainDefinitionMap.put("/favicon.ico", "anon");
+
+        filterChainDefinitionMap.put("/index*/**","anon");
+        filterChainDefinitionMap.put("/","anon");
 
         //登陆注册相关
         filterChainDefinitionMap.put("/register*/**", "anon");
@@ -63,5 +68,10 @@ public class ShiroConfig {
         MyShiroRealm myShiroRealm = new MyShiroRealm();
         myShiroRealm.setCredentialsMatcher(new PasswordMatcher());
         return myShiroRealm;
+    }
+
+    @Bean
+    public ShiroDialect shiroDialect(){
+        return new ShiroDialect();
     }
 }
