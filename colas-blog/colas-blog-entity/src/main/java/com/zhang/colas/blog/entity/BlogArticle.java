@@ -36,6 +36,8 @@ public class BlogArticle implements Serializable {
 
     private String content;
 
+    private Boolean isStick;
+
     public Integer getId() {
         return id;
     }
@@ -154,5 +156,13 @@ public class BlogArticle implements Serializable {
 
     public void setContent(String content) {
         this.content = content == null ? null : content.trim();
+    }
+
+    public Boolean getStick() {
+        return isStick;
+    }
+
+    public void setStick(Boolean stick) {
+        isStick = stick;
     }
 }

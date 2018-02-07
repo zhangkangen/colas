@@ -16,13 +16,14 @@
         <result column="comment_count" jdbcType="INTEGER" property="commentCount"/>
         <result column="create_by" jdbcType="INTEGER" property="createBy"/>
         <result column="is_valid" jdbcType="BIT" property="isValid"/>
+        <result column="is_stick" jdbcType="BIT" property="isStick"/>
     </resultMap>
     <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.zhang.colas.blog.entity.BlogArticle">
         <result column="content" jdbcType="LONGVARCHAR" property="content"/>
     </resultMap>
     <sql id="Base_Column_List">
         id, title, cover_img, memo, create_time, publish_time, update_time, article_type,
-        article_status, read_count, up_vote, comment_count, create_by, is_valid
+        article_status, read_count, up_vote, comment_count, create_by, is_valid, is_stick
     </sql>
     <sql id="Blob_Column_List">
         content
@@ -43,9 +44,9 @@
         order by update_time DESC
     </select>
     <select id="selectShallPublishArticleList" parameterType="com.zhang.colas.blog.entity.BlogArticle"
-        resultMap="BaseResultMap">
+            resultMap="BaseResultMap">
         SELECT
-            <include refid="Base_Column_List"/>
+        <include refid="Base_Column_List"/>
         FROM blog_article
         WHERE
         is_valid = #{isValid}
@@ -61,7 +62,7 @@
                                   memo, create_time, publish_time,
                                   update_time, article_type, article_status,
                                   read_count, up_vote, comment_count,
-                                  create_by, is_valid, content
+                                  create_by, is_valid, is_stick, content
         )
         VALUES (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{coverImg,jdbcType=VARCHAR},
                                         #{memo,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
@@ -70,7 +71,8 @@
                                         #{articleStatus,jdbcType=INTEGER},
                                         #{readCount,jdbcType=INTEGER}, #{upVote,jdbcType=INTEGER},
                 #{commentCount,jdbcType=INTEGER},
-                #{createBy,jdbcType=INTEGER}, #{isValid,jdbcType=BIT}, #{content,jdbcType=LONGVARCHAR}
+                #{createBy,jdbcType=INTEGER}, #{isValid,jdbcType=BIT},
+                #{isStick,jdbcType=BIT}, #{content,jdbcType=LONGVARCHAR}
         )
     </insert>
     <insert id="insertSelective" parameterType="com.zhang.colas.blog.entity.BlogArticle">
@@ -121,6 +123,9 @@
             <if test="content != null">
                 content,
             </if>
+            <if test="isStick != null">
+                is_stick,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -167,6 +172,9 @@
             </if>
             <if test="content != null">
                 #{content,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="isStick != null">
+                #{isStick,jdbcType=BIT},
             </if>
         </trim>
     </insert>
@@ -215,6 +223,9 @@
             <if test="content != null">
                 content = #{content,jdbcType=LONGVARCHAR},
             </if>
+            <if test="isStick != null">
+                is_stick = #{isStick,jdbcType=LONGVARCHAR},
+            </if>
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
@@ -233,7 +244,8 @@
             comment_count  = #{commentCount,jdbcType=INTEGER},
             create_by      = #{createBy,jdbcType=INTEGER},
             is_valid       = #{isValid,jdbcType=BIT},
-            content        = #{content,jdbcType=LONGVARCHAR}
+            content        = #{content,jdbcType=LONGVARCHAR},
+            is_stick       = #{isStick,jdbcType=BIT}
         WHERE id = #{id,jdbcType=INTEGER}
     </update>
     <update id="updateByPrimaryKey" parameterType="com.zhang.colas.blog.entity.BlogArticle">
@@ -250,7 +262,8 @@
             up_vote        = #{upVote,jdbcType=INTEGER},
             comment_count  = #{commentCount,jdbcType=INTEGER},
             create_by      = #{createBy,jdbcType=INTEGER},
-            is_valid       = #{isValid,jdbcType=BIT}
+            is_valid       = #{isValid,jdbcType=BIT},
+            is_stick       = #{isStick,jdbcType=BIT}
         WHERE id = #{id,jdbcType=INTEGER}
     </update>
 </mapper>

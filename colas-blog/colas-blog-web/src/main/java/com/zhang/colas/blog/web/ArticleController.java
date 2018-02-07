@@ -2,7 +2,9 @@ package com.zhang.colas.blog.web;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
+import com.hankcs.hanlp.HanLP;
 import com.zhang.colas.blog.entity.BlogArticle;
+import com.zhang.colas.blog.enums.ArticleTypeEnum;
 import com.zhang.colas.blog.service.ArticleService;
 import com.zhang.colas.common.SimpleResult;
 import com.zhang.colas.common.base.BaseController;
@@ -11,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author zxk
@@ -45,15 +49,21 @@ public class ArticleController extends BaseController {
 
     @GetMapping("editPage")
     public String editPage(Integer id, Model model) {
-
-        return "article/edit_page";
+        model.addAttribute("articleTypes", ArticleTypeEnum.values());
+        return "article/edit";
     }
 
     @PostMapping("save")
     @ResponseBody
     public SimpleResult save(BlogArticle blogArticle) {
 
-        return articleService.save(blogArticle);
+
+        //todo 关键词提取
+        //todo 文章摘要生成
+        List<String> memos = HanLP.extractSummary(blogArticle.getContent(),1,",");
+
+        return SimpleResult.responseOk("ok");
+        //return articleService.save(blogArticle);
     }
 
 }

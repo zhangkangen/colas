@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 
 <head>
 
@@ -17,56 +17,72 @@
     <link href="/hplus4.1/css/animate.min.css" rel="stylesheet">
     <link href="/hplus4.1/css/style.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/plugins/summernote-0.8.9/dist/summernote.css">
-
+    <link rel="stylesheet" href="/inspinia/css/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css">
     <style>
         .btn-default {
             background-color: #fff;
             color: #333;
             border-color: #ccc;
         }
+        .bootstrap-tagsinput{
+            width: 100%;
+        }
     </style>
+
 </head>
 
 <body class="gray-bg">
 <div class="wrapper wrapper-content">
 
     <div class="row">
-        <div class="col-sm-offset-1 col-sm-10">
+        <div class="col-sm-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <h5>写文章</h5>
                 </div>
                 <div class="ibox-content">
-                    <form class="form-horizontal m-t" id="signupForm">
+                    <form class="form-horizontal" action="/article/save" method="post" id="signupForm" role="form">
                         <div class="form-group">
+                            <label class="col-sm-2 control-label">标签：</label>
+                            <div class="col-sm-2">
+                                <select name="articleType" class="form-control" required>
+                                    <option>请选择</option>
+                                    <option th:each="articleType:${articleTypes}"
+                                            th:value="${articleType.value}"
+                                            th:text="${articleType.desc}"></option>
+                                </select>
+                            </div>
                             <label class="col-sm-2 control-label">标题：</label>
-                            <div class="col-sm-8">
-                                <input id="title" name="title" class="form-control" type="text">
-                                <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 这里写点提示的内容</span>
+                            <div class="col-sm-4">
+                                <input id="title" name="title" class="form-control" type="text" required>
+                                <div class="help-block with-errors"></div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">描述：</label>
+                            <label class="col-sm-2 control-label">标签：</label>
                             <div class="col-sm-8">
-                                <input id="memo" name="memo" class="form-control" type="text">
-                                <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 这里写点提示的内容</span>
+                                <input id="tags" name="tags" class="form-control" type="text" placeholder="输入标签">
                             </div>
                         </div>
+                        <div class="hr-line-dashed"></div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">封面：</label>
                             <div class="col-sm-8">
                                 <input type="text" name="coverImg" class="form-control">
                             </div>
                         </div>
-
+                        <div class="hr-line-dashed"></div>
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-8">
                                 <textarea name="content" class="summernote"></textarea>
                             </div>
                         </div>
+                        <div class="hr-line-dashed"></div>
                         <div class="form-group">
                             <div class="col-sm-8 col-sm-offset-2">
-                                <button class="btn btn-primary" type="submit">提交</button>
+                                <button class="btn btn-primary" type="button" onclick="save();">提交</button>
+                                <button class="btn btn-primary" type="button" onclick="save();">存入草稿箱</button>
+                                <button class="btn btn-primary" type="button" onclick="publishLater()">定时发布</button>
                             </div>
                         </div>
                     </form>
@@ -87,8 +103,29 @@
 <script src="/plugins/summernote-0.8.9/dist/summernote.js"></script>
 <script src="/plugins/summernote-0.8.9/dist/lang/summernote-zh-CN.js"></script>
 
+<!-- Typehead -->
+<script src="/inspinia/js/plugins/typehead/bootstrap3-typeahead.min.js"></script>
+<script src="/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>
+<script src="/plugins/bootstrap-validator-0.11.9/dist/validator.js"></script>
 
 <script>
+
+    $('#tags').tagsinput({
+        maxTags: 5,
+        itemValue: 'id',
+        itemText: 'name',
+        typeahead: {
+            displayKey: 'name',
+            source: function (query) {
+                return $.get('/tags/list', {query: query});
+            },
+            afterSelect: function () {
+                this.$element[0].value = '';
+            }
+        },
+        freeInput: true
+    })
+
     $(document).ready(function () {
 
         $('.summernote').summernote({
@@ -105,7 +142,7 @@
     function sendFile(files, editor, welEditable) {
 
         var data = new FormData();
-        $.each(files,function (idx, val) {
+        $.each(files, function (idx, val) {
             data.append("files", val);
         })
 
@@ -118,42 +155,28 @@
             cache: false,
             processData: false,
             success: function (res) {
-                if(res.success){
+                if (res.success) {
                     var data = res.data;
-                    $.each(data,function (i, v) {
+                    $.each(data, function (i, v) {
                         console.log(v)
-                        $('.summernote').summernote('insertImage',v.path,v.name);
+                        $('.summernote').summernote('insertImage', v.path, v.name);
                     })
                 }
             }
         })
     }
 
-    $(document).ready(function () {
-        var e = "<i class='fa fa-times-circle'></i> ";
-        $("#signupForm").validate({
-            rules: {
-                firstname: "required",
-            },
-            messages: {
-                firstname: e + "请输入你的姓",
-            },
-            submitHandler: function (form) {
+    function save() {
+        var data = $('#signupForm').serialize();
+        $.ajax({
+            url:'/article/save',
+            data:data,
+            type:'POST',
+            success:function (res) {
 
-                console.log($('#signupForm').serialize())
-                var data = $('#signupForm').serialize();
-                $.ajax({
-                    url: '/article/save',
-                    type: 'POST',
-                    data: data,
-                    success: function (res) {
-                        alert(JSON.stringify(res))
-                    }
-                })
-                return false;
             }
-        });
-    })
+        })
+    }
 </script>
 
 </body>
