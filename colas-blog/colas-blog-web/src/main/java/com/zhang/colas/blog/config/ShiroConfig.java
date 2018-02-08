@@ -36,6 +36,7 @@ public class ShiroConfig {
         shiroFilterFactoryBean.setFilters(filterMap);
 
         // 配置不会被拦截的链接 顺序判断
+        filterChainDefinitionMap.put("/static/**", "anon");
         filterChainDefinitionMap.put("/hplus4.1/**", "anon");
         filterChainDefinitionMap.put("/inspinia/**", "anon");
         filterChainDefinitionMap.put("/plugins/**", "anon");
