@@ -28,12 +28,10 @@ public class ShiroConfig {
 
         shiroFilterFactoryBean.setSecurityManager(securityManager);
 
-        Map filterMap = shiroFilterFactoryBean.getFilters();
-        filterMap.put("userContext", userContextFilter());
 
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
 
-        shiroFilterFactoryBean.setFilters(filterMap);
+
 
         // 配置不会被拦截的链接 顺序判断
         filterChainDefinitionMap.put("/hplus4.1/**", "anon");
@@ -63,10 +61,10 @@ public class ShiroConfig {
 
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 
+        Map filterMap = shiroFilterFactoryBean.getFilters();
+        filterMap.put("userContext", userContextFilter());
 
-
-
-
+        shiroFilterFactoryBean.setFilters(filterMap);
 
         return shiroFilterFactoryBean;
     }

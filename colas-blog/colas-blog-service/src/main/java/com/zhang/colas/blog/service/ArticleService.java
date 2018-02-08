@@ -2,6 +2,7 @@ package com.zhang.colas.blog.service;
 
 import com.github.pagehelper.PageInfo;
 import com.zhang.colas.blog.entity.BlogArticle;
+import com.zhang.colas.blog.entity.BlogUser;
 import com.zhang.colas.common.SimpleResult;
 
 import java.util.List;
@@ -27,7 +28,7 @@ public interface ArticleService {
     int updateByPrimaryKey(BlogArticle record);
 
 
-    SimpleResult save(BlogArticle blogArticle);
+    SimpleResult save(BlogArticle blogArticle, String tagNames, BlogUser user);
 
     PageInfo<BlogArticle> selectArticleListPage(int pageNum, int pageSize);
 

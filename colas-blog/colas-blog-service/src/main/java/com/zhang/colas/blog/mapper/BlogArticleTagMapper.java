@@ -14,4 +14,6 @@ public interface BlogArticleTagMapper {
     int updateByPrimaryKeySelective(BlogArticleTag record);
 
     int updateByPrimaryKey(BlogArticleTag record);
+
+    Integer removeAllByArticleId(Integer articleId);
 }

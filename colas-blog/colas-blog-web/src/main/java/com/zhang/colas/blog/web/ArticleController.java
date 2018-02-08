@@ -2,15 +2,19 @@ package com.zhang.colas.blog.web;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.hankcs.hanlp.HanLP;
 import com.zhang.colas.blog.bind.annotation.CurrentUser;
 import com.zhang.colas.blog.entity.BlogArticle;
+import com.zhang.colas.blog.entity.BlogTag;
 import com.zhang.colas.blog.entity.BlogUser;
 import com.zhang.colas.blog.enums.ArticleTypeEnum;
 import com.zhang.colas.blog.service.ArticleService;
 import com.zhang.colas.blog.utils.Constants;
 import com.zhang.colas.common.SimpleResult;
 import com.zhang.colas.common.base.BaseController;
+import org.apache.commons.io.Charsets;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -18,6 +22,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -61,15 +67,16 @@ public class ArticleController extends BaseController {
 
     @PostMapping("save")
     @ResponseBody
-    public SimpleResult save(BlogArticle blogArticle) {
-
+    public SimpleResult save(BlogArticle article, String tagNames, @CurrentUser BlogUser user) {
 
         //todo 关键词提取
-        //todo 文章摘要生成
-        List<String> memos = HanLP.extractSummary(blogArticle.getContent(), 1, ",");
 
-        return SimpleResult.responseOk("ok");
-        //return articleService.save(blogArticle);
+        List<String> memos = HanLP.extractSummary(article.getContent(), 1, ",");
+
+        article.setMemo(memos.get(0));
+        String str = new Gson().toJson(tagNames);
+        System.out.println(str);
+        return articleService.save(article, tagNames, user);
     }
 
 }

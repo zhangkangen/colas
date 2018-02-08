@@ -13,7 +13,8 @@
 
     <link rel="shortcut icon" href="favicon.ico">
     <link href="/hplus4.1/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/hplus4.1/css/font-awesome.min.css" rel="stylesheet">
+    <!--<link href="/hplus4.1/css/font-awesome.min.css" rel="stylesheet">-->
+    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
     <link href="/hplus4.1/css/animate.min.css" rel="stylesheet">
     <link href="/hplus4.1/css/style.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/plugins/summernote-0.8.9/dist/summernote.css">
@@ -24,7 +25,8 @@
             color: #333;
             border-color: #ccc;
         }
-        .bootstrap-tagsinput{
+
+        .bootstrap-tagsinput {
             width: 100%;
         }
     </style>
@@ -46,7 +48,7 @@
                             <label class="col-sm-2 control-label">标签：</label>
                             <div class="col-sm-2">
                                 <select name="articleType" class="form-control" required>
-                                    <option>请选择</option>
+                                    <option value="">请选择</option>
                                     <option th:each="articleType:${articleTypes}"
                                             th:value="${articleType.value}"
                                             th:text="${articleType.desc}"></option>
@@ -114,16 +116,30 @@
         maxTags: 5,
         itemValue: 'id',
         itemText: 'name',
+        allowDuplicates: false,
         typeahead: {
             displayKey: 'name',
             source: function (query) {
                 return $.get('/tags/list', {query: query});
             },
             afterSelect: function () {
+                console.log(this.$element[0])
                 this.$element[0].value = '';
             }
         },
         freeInput: true
+    })
+
+    $('#tags').on('beforeItemAdd', function (event) {
+        console.log(event)
+        var item = event.item;
+        var items = $('#tags').tagsinput('items');
+        console.log(items)
+        for (var i = 0; i < items.length; i++) {
+            if (items[i].name == item.name) {
+                $('#tags').tagsinput('remove', items[i]);
+            }
+        }
     })
 
     $(document).ready(function () {
@@ -168,11 +184,17 @@
 
     function save() {
         var data = $('#signupForm').serialize();
+        var items = $('#tags').tagsinput('items');
+        var tagNames = [];
+        $.each(items,function (i, v) {
+            tagNames.push(v.name);
+        })
+        data+='&tagNames='+ encodeURIComponent( tagNames.join(','))
         $.ajax({
-            url:'/article/save',
-            data:data,
-            type:'POST',
-            success:function (res) {
+            url: '/article/save',
+            data: data,
+            type: 'POST',
+            success: function (res) {
 
             }
         })

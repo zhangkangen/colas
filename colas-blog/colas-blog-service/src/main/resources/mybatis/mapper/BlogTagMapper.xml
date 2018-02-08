@@ -27,7 +27,14 @@
       </if>
     </where>
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <select id="getTagByCreateByAndName" resultMap="BaseResultMap">
+      SELECT
+        <include refid="Base_Column_List"/>
+      FROM blog_tag
+      WHERE create_by = #{createBy} and name = #{name}
+      and is_valid = true
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from blog_tag
     where id = #{id,jdbcType=INTEGER}
   </delete>
@@ -37,7 +44,7 @@
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{createBy,jdbcType=INTEGER}, #{isValid,jdbcType=BIT})
   </insert>
-  <insert id="insertSelective" parameterType="com.zhang.colas.blog.entity.BlogTag">
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id" parameterType="com.zhang.colas.blog.entity.BlogTag">
     insert into blog_tag
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
