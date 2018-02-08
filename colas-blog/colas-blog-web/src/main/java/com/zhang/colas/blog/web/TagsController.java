@@ -1,6 +1,10 @@
 package com.zhang.colas.blog.web;
 
+import com.zhang.colas.blog.bind.annotation.CurrentUser;
 import com.zhang.colas.blog.entity.BlogTag;
+import com.zhang.colas.blog.entity.BlogUser;
+import com.zhang.colas.blog.service.TagsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,24 +17,14 @@ import java.util.List;
 @RequestMapping("tags")
 public class TagsController {
 
+    @Autowired
+    private TagsService tagsService;
+
     @GetMapping("list")
     @ResponseBody
-    public List<BlogTag> list(){
-        return new ArrayList<BlogTag>() {
-            {
-                add(new BlogTag(){
-                    {
-                        this.setId(111111);
-                        this.setName("111111");
-                    }
-                });
-                add(new BlogTag(){
-                    {
-                        this.setId(2222);
-                        this.setName("222222");
-                    }
-                });
-            }
-        };
+    public List<BlogTag> list(@CurrentUser BlogUser user) {
+
+        List<BlogTag> tags = tagsService.queryListByCreateBy(user.getId());
+        return tags;
     }
 }

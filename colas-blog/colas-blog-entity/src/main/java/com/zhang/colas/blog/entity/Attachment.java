@@ -1,8 +1,10 @@
 package com.zhang.colas.blog.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Attachment {
+public class Attachment implements Serializable {
+    private static final long serialVersionUID = 4095352089084938470L;
     private Integer id;
 
     private String name;

@@ -1,6 +1,9 @@
 package com.zhang.colas.blog.entity;
 
-public class BlogUser {
+import java.io.Serializable;
+
+public class BlogUser implements Serializable {
+    private static final long serialVersionUID = -8817112534697656415L;
     private Integer id;
 
     private String username;

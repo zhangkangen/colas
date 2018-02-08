@@ -2,6 +2,8 @@ package com.zhang.colas.blog.mapper;
 
 import com.zhang.colas.blog.entity.BlogTag;
 
+import java.util.List;
+
 public interface BlogTagMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +16,6 @@ public interface BlogTagMapper {
     int updateByPrimaryKeySelective(BlogTag record);
 
     int updateByPrimaryKey(BlogTag record);
+
+    List<BlogTag> selectListByModel(BlogTag tag);
 }

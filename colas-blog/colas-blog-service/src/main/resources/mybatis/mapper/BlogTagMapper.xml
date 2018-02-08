@@ -17,6 +17,16 @@
     from blog_tag
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="selectListByModel" parameterType="com.zhang.colas.blog.entity.BlogTag" resultMap="BaseResultMap">
+    SELECT
+      <include refid="Base_Column_List"/>
+    FROM blog_tag
+    <where>
+      <if test="createBy!=null and createBy!=''">
+        and create_by = #{createBy}
+      </if>
+    </where>
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from blog_tag
     where id = #{id,jdbcType=INTEGER}

@@ -2,7 +2,6 @@ package com.zhang.colas.blog.web;
 
 import com.zhang.colas.blog.entity.BlogUser;
 import com.zhang.colas.blog.service.AuthService;
-import com.zhang.colas.blog.utils.ShiroUserUtils;
 import com.zhang.colas.common.SimpleResult;
 import com.zhang.colas.common.base.BaseController;
 import org.apache.shiro.SecurityUtils;
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * @author zxk
@@ -29,7 +27,6 @@ public class HomeController extends BaseController {
 
     @GetMapping({"", "index"})
     public String index() {
-        BlogUser user = ShiroUserUtils.getSessionUser();
         return "index";
     }
 
