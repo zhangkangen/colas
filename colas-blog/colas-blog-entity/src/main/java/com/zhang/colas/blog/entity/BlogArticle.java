@@ -1,7 +1,9 @@
 package com.zhang.colas.blog.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class BlogArticle implements Serializable {
     private static final long serialVersionUID = 79727291843029396L;
@@ -37,6 +39,10 @@ public class BlogArticle implements Serializable {
     private String content;
 
     private Boolean isStick;
+
+
+    private BlogUser author;
+    private List<BlogTag> tags = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -164,5 +170,22 @@ public class BlogArticle implements Serializable {
 
     public void setStick(Boolean stick) {
         isStick = stick;
+    }
+
+
+    public BlogUser getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(BlogUser author) {
+        this.author = author;
+    }
+
+    public List<BlogTag> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<BlogTag> tags) {
+        this.tags = tags;
     }
 }

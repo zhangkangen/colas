@@ -9,7 +9,9 @@ import com.zhang.colas.blog.entity.BlogUser;
 import com.zhang.colas.blog.mapper.BlogArticleMapper;
 import com.zhang.colas.blog.mapper.BlogArticleTagMapper;
 import com.zhang.colas.blog.mapper.BlogTagMapper;
+import com.zhang.colas.blog.mapper.BlogUserMapper;
 import com.zhang.colas.blog.service.ArticleService;
+import com.zhang.colas.common.PageParams;
 import com.zhang.colas.common.SimpleResult;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,8 @@ public class ArticleServiceImpl implements ArticleService {
     private BlogTagMapper tagMapper;
     @Autowired
     private BlogArticleTagMapper articleTagMapper;
+    @Autowired
+    private BlogUserMapper userMapper;
 
     @Override
     public int deleteByPrimaryKey(Integer id) {
@@ -119,10 +123,26 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public PageInfo<BlogArticle> selectArticleListPage(int pageNum, int pageSize) {
+    public PageInfo<BlogArticle> selectArticleListPage(PageParams pageParams) {
         PageInfo<BlogArticle> pageInfo = PageHelper
-                .startPage(pageNum, pageSize)
-                .doSelectPageInfo(() -> articleMapper.queryList());
+                .startPage(1, pageParams.getLimit())
+                .doSelectPageInfo(() ->
+                {
+                    List<BlogArticle> list = articleMapper.queryFeedList();
+                    for (BlogArticle article :
+                            list) {
+                        article.setAuthor( userMapper.selectByPrimaryKey(article.getCreateBy()));
+
+                        //todo
+                        List<BlogArticleTag> articleTags = articleTagMapper.selectTagsByArticleId(article.getId());
+                        List<BlogTag> tags = new ArrayList<>();
+                        for (BlogArticleTag articleTag :
+                                articleTags) {
+                           tags.add( tagMapper.selectByPrimaryKey(articleTag.getTagId()));
+                        }
+                        article.setTags(tags);
+                    }
+                });
         return pageInfo;
     }
 

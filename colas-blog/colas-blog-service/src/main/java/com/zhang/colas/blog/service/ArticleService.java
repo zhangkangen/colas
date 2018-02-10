@@ -3,6 +3,7 @@ package com.zhang.colas.blog.service;
 import com.github.pagehelper.PageInfo;
 import com.zhang.colas.blog.entity.BlogArticle;
 import com.zhang.colas.blog.entity.BlogUser;
+import com.zhang.colas.common.PageParams;
 import com.zhang.colas.common.SimpleResult;
 
 import java.util.List;
@@ -30,7 +31,7 @@ public interface ArticleService {
 
     SimpleResult save(BlogArticle blogArticle, String tagNames, BlogUser user);
 
-    PageInfo<BlogArticle> selectArticleListPage(int pageNum, int pageSize);
+    PageInfo<BlogArticle> selectArticleListPage(PageParams pageParams);
 
     /**
      * 查询需要发布的文章

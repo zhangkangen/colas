@@ -8,8 +8,8 @@ import java.io.Serializable;
 public class PageParams implements Serializable {
     private static final long serialVersionUID = -7759623105795137222L;
 
-    private long sinceId;
-    private long maxId;
+    private long sinceId = 0;
+    private long maxId = 0;
     private Integer limit = 10;
 
     public long getSinceId() {

@@ -12,6 +12,7 @@ import com.zhang.colas.blog.entity.BlogUser;
 import com.zhang.colas.blog.enums.ArticleTypeEnum;
 import com.zhang.colas.blog.service.ArticleService;
 import com.zhang.colas.blog.utils.Constants;
+import com.zhang.colas.common.PageParams;
 import com.zhang.colas.common.SimpleResult;
 import com.zhang.colas.common.base.BaseController;
 import org.apache.commons.io.Charsets;
@@ -38,10 +39,9 @@ public class ArticleController extends BaseController {
     private ArticleService articleService;
 
     @GetMapping({"index", ""})
-    public String index(@RequestParam(value = "pageNum", required = true, defaultValue = "1") Integer pageNum,
-                        @RequestParam(value = "pageSize", required = true, defaultValue = "10") Integer pageSize, Model model) {
+    public String index(PageParams pageParams, Model model) {
 
-        PageInfo<BlogArticle> pageInfo = articleService.selectArticleListPage(pageNum, pageSize);
+        PageInfo<BlogArticle> pageInfo = articleService.selectArticleListPage(pageParams);
 
         model.addAttribute("pageInfo", pageInfo);
 

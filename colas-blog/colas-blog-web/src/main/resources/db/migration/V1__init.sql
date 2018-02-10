@@ -7,7 +7,7 @@ DROP TABLE IF EXISTS blog_comment;
 CREATE TABLE IF NOT EXISTS blog_user (
   id       INTEGER AUTO_INCREMENT NOT NULL,
   username VARCHAR(20)            NOT NULL,
-  password VARCHAR(20),
+  password VARCHAR(100),
   email    VARCHAR(20),
   phone    VARCHAR(20),
   nickname VARCHAR(20),
@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS blog_user (
 CREATE TABLE IF NOT EXISTS blog_article (
   id             INTEGER AUTO_INCREMENT NOT NULL,
   title          VARCHAR(20),
-  cover_img      VARCHAR(100) COMMENT '封面图',
+  cover_img      VARCHAR(255) COMMENT '封面图',
   memo           VARCHAR(255),
   content        TEXT,
   create_time    DATETIME,
@@ -26,6 +26,7 @@ CREATE TABLE IF NOT EXISTS blog_article (
   update_time    TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   article_type   INTEGER COMMENT '',
   article_status INTEGER,
+  is_stick       BIT       DEFAULT 0,
   read_count     INTEGER   DEFAULT 0
   COMMENT '阅读量',
   up_vote        INTEGER   DEFAULT 0

@@ -19,7 +19,7 @@ public interface BlogArticleMapper {
 
     int updateByPrimaryKey(BlogArticle record);
 
-    List<BlogArticle> queryList();
+    List<BlogArticle> queryFeedList();
 
     List<BlogArticle> selectShallPublishArticleList(BlogArticle queryArticle);
 }
