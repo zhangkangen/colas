@@ -1,6 +1,7 @@
 package com.zhang.colas.blog.mapper;
 
 import com.zhang.colas.blog.entity.BlogArticle;
+import com.zhang.colas.common.PageParams;
 
 import java.util.List;
 

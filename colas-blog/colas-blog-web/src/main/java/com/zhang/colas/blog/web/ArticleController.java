@@ -42,7 +42,13 @@ public class ArticleController extends BaseController {
     public String index(PageParams pageParams, Model model) {
 
         PageInfo<BlogArticle> pageInfo = articleService.selectArticleListPage(pageParams);
-
+        if (pageInfo.getSize() > 0) {
+            model.addAttribute("maxId", pageInfo.getList().get(0).getId());
+            model.addAttribute("sinceId", pageInfo.getList().get(pageInfo.getSize() - 1).getId());
+        } else {
+            model.addAttribute("maxId", 0);
+            model.addAttribute("sinceId", 0);
+        }
         model.addAttribute("pageInfo", pageInfo);
 
         return "article/index";
@@ -76,6 +82,7 @@ public class ArticleController extends BaseController {
         article.setMemo(memos.get(0));
         String str = new Gson().toJson(tagNames);
         System.out.println(str);
+
         return articleService.save(article, tagNames, user);
     }
 

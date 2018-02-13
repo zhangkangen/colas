@@ -4,7 +4,7 @@ DROP TABLE IF EXISTS blog_tag;
 DROP TABLE IF EXISTS blog_article_tag;
 DROP TABLE IF EXISTS blog_comment;
 
-CREATE TABLE IF NOT EXISTS blog_user (
+CREATE TABLE  blog_user (
   id       INTEGER AUTO_INCREMENT NOT NULL,
   username VARCHAR(20)            NOT NULL,
   password VARCHAR(100),
@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS blog_user (
   PRIMARY KEY (id)
 );
 
-CREATE TABLE IF NOT EXISTS blog_article (
+CREATE TABLE  blog_article (
   id             INTEGER AUTO_INCREMENT NOT NULL,
   title          VARCHAR(20),
   cover_img      VARCHAR(255) COMMENT '封面图',
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS blog_article (
   PRIMARY KEY (id)
 );
 
-CREATE TABLE IF NOT EXISTS blog_tag (
+CREATE TABLE  blog_tag (
   id          INTEGER AUTO_INCREMENT NOT NULL,
   name        VARCHAR(20),
   create_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS blog_tag (
   PRIMARY KEY (id)
 );
 
-CREATE TABLE IF NOT EXISTS blog_article_tag (
+CREATE TABLE  blog_article_tag (
   id          INTEGER AUTO_INCREMENT NOT NULL,
   article_id  INTEGER                NOT NULL,
   tag_id      INTEGER                NOT NULL,
@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS blog_article_tag (
   PRIMARY KEY (id)
 );
 
-CREATE TABLE IF NOT EXISTS blog_comment (
+CREATE TABLE  blog_comment (
   id             INTEGER AUTO_INCREMENT NOT NULL,
   article_id     INTEGER,
   user_id        INTEGER,
