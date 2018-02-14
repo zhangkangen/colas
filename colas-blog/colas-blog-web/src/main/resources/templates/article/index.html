@@ -39,6 +39,9 @@
 
         <div class="wrapper wrapper-content  animated fadeInRight blog">
             <div class="row">
+                <div th:if="${pageInfo.size==0}">
+                    <h4>还没有要显示的内容</h4>
+                </div>
                 <th:block th:each="article : ${pageInfo.list}">
                     <div class="col-lg-4">
                         <div class="ibox">
