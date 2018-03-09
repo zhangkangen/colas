@@ -1,30 +1,21 @@
 package com.zhang.colas.blog.web;
 
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageInfo;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.hankcs.hanlp.HanLP;
 import com.zhang.colas.blog.bind.annotation.CurrentUser;
 import com.zhang.colas.blog.entity.BlogArticle;
-import com.zhang.colas.blog.entity.BlogTag;
 import com.zhang.colas.blog.entity.BlogUser;
 import com.zhang.colas.blog.enums.ArticleTypeEnum;
 import com.zhang.colas.blog.service.ArticleService;
-import com.zhang.colas.blog.utils.Constants;
 import com.zhang.colas.common.PageParams;
 import com.zhang.colas.common.SimpleResult;
 import com.zhang.colas.common.base.BaseController;
-import org.apache.commons.io.Charsets;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -41,6 +32,7 @@ public class ArticleController extends BaseController {
     @GetMapping({"index", ""})
     public String index(PageParams pageParams, Model model) {
 
+        /*
         PageInfo<BlogArticle> pageInfo = articleService.selectArticleListPage(pageParams);
         if (pageInfo.getSize() > 0) {
             model.addAttribute("maxId", pageInfo.getList().get(0).getId());
@@ -50,6 +42,7 @@ public class ArticleController extends BaseController {
             model.addAttribute("sinceId", 0);
         }
         model.addAttribute("pageInfo", pageInfo);
+        */
 
         return "article/index";
     }
@@ -57,7 +50,10 @@ public class ArticleController extends BaseController {
     @GetMapping("/{id}")
     public String info(@PathVariable("id") Integer id, Model model, HttpServletRequest request) {
 
-        BlogArticle article = articleService.selectByPrimaryKey(id);
+        BlogArticle article = articleService.findOne(id);
+        if(article == null || !article.getIsValid()){
+            article = new BlogArticle();
+        }
         model.addAttribute("article", article);
 
         return "article/article";

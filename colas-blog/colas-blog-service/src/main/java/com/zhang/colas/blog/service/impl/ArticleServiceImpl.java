@@ -1,15 +1,11 @@
 package com.zhang.colas.blog.service.impl;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import com.zhang.colas.blog.entity.BlogArticle;
 import com.zhang.colas.blog.entity.BlogArticleTag;
 import com.zhang.colas.blog.entity.BlogTag;
 import com.zhang.colas.blog.entity.BlogUser;
-import com.zhang.colas.blog.mapper.BlogArticleMapper;
-import com.zhang.colas.blog.mapper.BlogArticleTagMapper;
-import com.zhang.colas.blog.mapper.BlogTagMapper;
-import com.zhang.colas.blog.mapper.BlogUserMapper;
+import com.zhang.colas.blog.repository.ArticleRepository;
+import com.zhang.colas.blog.repository.ArticleTagRepository;
 import com.zhang.colas.blog.service.ArticleService;
 import com.zhang.colas.common.PageParams;
 import com.zhang.colas.common.SimpleResult;
@@ -27,49 +23,9 @@ import java.util.List;
 public class ArticleServiceImpl implements ArticleService {
 
     @Autowired
-    private BlogArticleMapper articleMapper;
+    private ArticleRepository articleRepository;
     @Autowired
-    private BlogTagMapper tagMapper;
-    @Autowired
-    private BlogArticleTagMapper articleTagMapper;
-    @Autowired
-    private BlogUserMapper userMapper;
-
-    @Override
-    public int deleteByPrimaryKey(Integer id) {
-        return articleMapper.deleteByPrimaryKey(id);
-    }
-
-    @Override
-    public int insert(BlogArticle record) {
-        return articleMapper.insert(record);
-    }
-
-    @Override
-    public int insertSelective(BlogArticle record) {
-        record.setCreateTime(new Date());
-        return articleMapper.insertSelective(record);
-    }
-
-    @Override
-    public BlogArticle selectByPrimaryKey(Integer id) {
-        return articleMapper.selectByPrimaryKey(id);
-    }
-
-    @Override
-    public int updateByPrimaryKeySelective(BlogArticle record) {
-        return articleMapper.updateByPrimaryKeySelective(record);
-    }
-
-    @Override
-    public int updateByPrimaryKeyWithBLOBs(BlogArticle record) {
-        return articleMapper.updateByPrimaryKeyWithBLOBs(record);
-    }
-
-    @Override
-    public int updateByPrimaryKey(BlogArticle record) {
-        return articleMapper.updateByPrimaryKey(record);
-    }
+    private ArticleTagRepository articleTagRepository;
 
     @Transactional(rollbackFor = Exception.class)
     @Override
@@ -77,9 +33,8 @@ public class ArticleServiceImpl implements ArticleService {
 
         if (article.getId() != null) {
 
-            articleMapper.updateByPrimaryKeySelective(article);
+            articleRepository.save(article);
 
-            Integer count = articleTagMapper.removeAllByArticleId(article.getId());
         } else {
             article.setCreateBy(user.getId());
             article.setCreateTime(new Date());
@@ -87,7 +42,7 @@ public class ArticleServiceImpl implements ArticleService {
 
             //todo 需要判断是否是定时发布
             article.setArticleStatus(1);
-            articleMapper.insertSelective(article);
+            articleRepository.save(article);
         }
 
         List<BlogTag> tagList = new ArrayList<>();
@@ -95,16 +50,7 @@ public class ArticleServiceImpl implements ArticleService {
         String[] tagNameArr = StringUtils.split(tagNames, ",");
         for (String name :
                 tagNameArr) {
-            BlogTag addTag = tagMapper.getTagByCreateByAndName(user.getId(), name);
-            if (addTag == null) {
-                addTag = new BlogTag();
-                addTag.setName(name);
-                addTag.setCreateBy(user.getId());
-                addTag.setCreateTime(new Date());
-
-                tagMapper.insertSelective(addTag);
-            }
-            tagList.add(addTag);
+            //todo 保存文章的标签
         }
 
         BlogArticleTag saveArticleTag;
@@ -116,38 +62,25 @@ public class ArticleServiceImpl implements ArticleService {
             saveArticleTag.setCreateBy(user.getId());
             saveArticleTag.setCreateTime(new Date());
 
-            articleTagMapper.insertSelective(saveArticleTag);
+            articleTagRepository.save(saveArticleTag);
         }
 
         return SimpleResult.responseOk("ok");
     }
 
     @Override
-    public PageInfo<BlogArticle> selectArticleListPage(PageParams pageParams) {
-        PageInfo<BlogArticle> pageInfo = PageHelper
-                .startPage(1, pageParams.getLimit())
-                .doSelectPageInfo(() ->
-                {
-                    List<BlogArticle> list = articleMapper.queryFeedList();
-                    for (BlogArticle article :
-                            list) {
-                        article.setAuthor( userMapper.selectByPrimaryKey(article.getCreateBy()));
-
-                        //todo
-                        List<BlogArticleTag> articleTags = articleTagMapper.selectTagsByArticleId(article.getId());
-                        List<BlogTag> tags = new ArrayList<>();
-                        for (BlogArticleTag articleTag :
-                                articleTags) {
-                           tags.add( tagMapper.selectByPrimaryKey(articleTag.getTagId()));
-                        }
-                        article.setTags(tags);
-                    }
-                });
-        return pageInfo;
+    public List<BlogArticle> selectShallPublishArticleList(BlogArticle queryArticle) {
+        //todo 查询需要发布的文章
+        return new ArrayList<>();
     }
 
     @Override
-    public List<BlogArticle> selectShallPublishArticleList(BlogArticle queryArticle) {
-        return articleMapper.selectShallPublishArticleList(queryArticle);
+    public BlogArticle findOne(Integer id) {
+        return articleRepository.findOne(id);
+    }
+
+    @Override
+    public BlogArticle save(BlogArticle article) {
+        return articleRepository.save(article);
     }
 }

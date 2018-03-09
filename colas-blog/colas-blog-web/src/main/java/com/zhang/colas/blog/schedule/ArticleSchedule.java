@@ -42,7 +42,7 @@ public class ArticleSchedule {
                 list) {
             article.setArticleStatus(1);
 
-            articleService.updateByPrimaryKeySelective(article);
+            articleService.save(article);
         }
         LOGGER.info("文章定时发布定时器执行结束");
     }

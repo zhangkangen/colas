@@ -1,10 +1,15 @@
 package com.zhang.colas.blog.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Date;
 
+@Entity
 public class Attachment implements Serializable {
     private static final long serialVersionUID = 4095352089084938470L;
+
+    @Id
     private Integer id;
 
     private String name;

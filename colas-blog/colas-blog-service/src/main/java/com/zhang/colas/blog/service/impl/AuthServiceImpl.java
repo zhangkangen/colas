@@ -1,14 +1,14 @@
 package com.zhang.colas.blog.service.impl;
 
 import com.zhang.colas.blog.entity.BlogUser;
-import com.zhang.colas.blog.mapper.BlogUserMapper;
+import com.zhang.colas.blog.repository.UserRepository;
 import com.zhang.colas.blog.service.AuthService;
 import com.zhang.colas.common.SimpleResult;
 import org.apache.shiro.authc.credential.DefaultPasswordService;
 import org.apache.shiro.authc.credential.PasswordService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.cache.CacheProperties;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,7 +29,7 @@ public class AuthServiceImpl implements AuthService {
     private PasswordService passwordService = new DefaultPasswordService();
 
     @Autowired
-    private BlogUserMapper userMapper;
+    private UserRepository userRepository;
 
     @Transactional
     @Override
@@ -41,8 +41,7 @@ public class AuthServiceImpl implements AuthService {
             return SimpleResult.responseError("用户名已存在");
         }
         user.setPassword(passwordService.encryptPassword(user.getPassword()));
-
-        userMapper.insertSelective(user);
+        userRepository.save(user);
 
         return SimpleResult.responseOk("");
     }
@@ -54,9 +53,14 @@ public class AuthServiceImpl implements AuthService {
         BlogUser user = new BlogUser();
         user.setUsername(username.trim());
         user.setIsValid(true);
-        List<BlogUser> list = userMapper.selectListByModel(user);
-        if (list.size() > 0) {
-            return list.get(0);
+
+        //todo 条件查询用户
+        Example<BlogUser> example = Example.of(user);
+
+        List<BlogUser> userList = userRepository.findAll(example);
+
+        if (userList.size() > 0) {
+            return userList.get(0);
         }
         return null;
     }

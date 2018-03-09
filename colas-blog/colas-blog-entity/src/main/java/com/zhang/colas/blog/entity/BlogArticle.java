@@ -1,13 +1,18 @@
 package com.zhang.colas.blog.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Transient;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@Entity
 public class BlogArticle implements Serializable {
     private static final long serialVersionUID = 79727291843029396L;
 
+    @Id
     private Integer id;
 
     private String title;
@@ -40,8 +45,9 @@ public class BlogArticle implements Serializable {
 
     private Boolean isStick;
 
-
+    @Transient
     private BlogUser author;
+    @Transient
     private List<BlogTag> tags = new ArrayList<>();
 
     public Integer getId() {

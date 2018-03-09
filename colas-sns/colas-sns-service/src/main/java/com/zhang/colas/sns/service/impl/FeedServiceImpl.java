@@ -3,9 +3,7 @@ package com.zhang.colas.sns.service.impl;
 import com.zhang.colas.common.PageParams;
 import com.zhang.colas.common.PageResult;
 import com.zhang.colas.sns.entity.Feed;
-import com.zhang.colas.sns.mapper.FeedMapper;
 import com.zhang.colas.sns.service.FeedService;
-import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

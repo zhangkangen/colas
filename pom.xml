@@ -17,7 +17,7 @@
     <modules>
         <module>colas-commons</module>
         <module>colas-core</module>
-        <module>colas-sns</module>
+        <!--<module>colas-sns</module>-->
         <module>colas-yyg</module>
         <module>colas-shop</module>
         <module>colas-blog</module>
@@ -87,25 +87,19 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-cache</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>net.sf.ehcache</groupId>
             <artifactId>ehcache</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.mybatis.spring.boot</groupId>
-            <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>${mybatis-spring-boot-starter.version}</version>
-        </dependency>
-        <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
             <version>${druid-spring-boot-starter.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.github.pagehelper</groupId>
-            <artifactId>pagehelper-spring-boot-starter</artifactId>
-            <version>1.2.3</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/com.qiniu/qiniu-java-sdk -->
         <dependency>
@@ -139,6 +133,7 @@
             <artifactId>thymeleaf-extras-shiro</artifactId>
             <version>${thymeleaf-shiro.version}</version>
         </dependency>
+        <!--自然语言处理-->
         <dependency>
             <groupId>com.hankcs</groupId>
             <artifactId>hanlp</artifactId>
@@ -151,11 +146,6 @@
         <repository>
             <id>aliyunmaven</id>
             <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
-        </repository>
-        <repository>
-            <id>apache-repo</id>
-            <name>apache Repository</name>
-            <url>https://repository.apache.org/content/groups/public/</url>
         </repository>
         <repository>
             <id>travis-ci-repo</id>
@@ -171,33 +161,6 @@
             <id>springsource-repo</id>
             <name>SpringSource Repository</name>
             <url>http://repo.springsource.org/release/</url>
-        </repository>
-        <repository>
-            <id>cloudhopper</id>
-            <name>Repository for Cloudhopper</name>
-            <url>http://maven.cloudhopper.com/repos/third-party/</url>
-        </repository>
-        <repository>
-            <id>jboss-repo-releases</id>
-            <name>Jboss Repository</name>
-            <url>https://repository.jboss.org/nexus/content/repositories/releases/</url>
-        </repository>
-        <repository>
-            <id>central</id>
-            <name>Maven Repository Switchboard</name>
-            <layout>default</layout>
-            <url>http://repo.maven.apache.org/maven2</url>
-        </repository>
-        <repository>
-            <id>maven-repo1</id>
-            <name>maven-repo1</name>
-            <layout>default</layout>
-            <url>http://repo1.maven.org/maven2/</url>
-        </repository>
-        <repository>
-            <id>sourceforge-releases</id>
-            <name>Sourceforge Releases</name>
-            <url>https://oss.sonatype.org/content/repositories/sourceforge-releases/</url>
         </repository>
     </repositories>
     <build>

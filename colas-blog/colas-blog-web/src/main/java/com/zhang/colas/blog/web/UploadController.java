@@ -57,7 +57,7 @@ public class UploadController extends BaseController {
                     attachment.setAttachmentMd5(md5);
                     attachment.setCreateBy(-1);
 
-                    attachmentService.insertSelective(attachment);
+                    attachmentService.save(attachment);
 
                     attachment.setPath("http://"+upload.getUrl());
                 } else {

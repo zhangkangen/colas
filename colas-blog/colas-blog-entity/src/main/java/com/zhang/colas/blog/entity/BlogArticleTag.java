@@ -1,12 +1,16 @@
 package com.zhang.colas.blog.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Date;
 
+@Entity
 public class BlogArticleTag implements Serializable {
     private static final long serialVersionUID = -8368554220218981509L;
     private Integer id;
 
+    @Id
     private Integer articleId;
 
     private Integer tagId;
