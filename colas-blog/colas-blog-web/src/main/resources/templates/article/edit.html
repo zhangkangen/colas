@@ -190,6 +190,9 @@
             tagNames.push(v.name);
         })
         data+='&tagNames='+ encodeURIComponent( tagNames.join(','))
+
+        alert(data);
+
         $.ajax({
             url: '/article/save',
             data: data,

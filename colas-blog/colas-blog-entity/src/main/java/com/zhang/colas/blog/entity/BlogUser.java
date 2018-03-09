@@ -1,7 +1,6 @@
 package com.zhang.colas.blog.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
@@ -9,6 +8,8 @@ public class BlogUser implements Serializable {
     private static final long serialVersionUID = -8817112534697656415L;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
     private Integer id;
 
     private String username;
