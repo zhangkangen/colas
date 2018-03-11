@@ -71,7 +71,8 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public List<BlogArticle> selectShallPublishArticleList(BlogArticle queryArticle) {
         //todo 查询需要发布的文章
-        return new ArrayList<>();
+        List<BlogArticle> list = articleRepository.queryShallPublishArticleList(queryArticle);
+        return list;
     }
 
     @Override
