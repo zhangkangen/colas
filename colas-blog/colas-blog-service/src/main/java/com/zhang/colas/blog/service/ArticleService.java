@@ -13,14 +13,11 @@ import java.util.List;
 public interface ArticleService {
 
     SimpleResult save(BlogArticle blogArticle, String tagNames, BlogUser user);
-    /**
-     * 查询需要发布的文章
-     * @param queryArticle
-     * @return
-     */
-    List<BlogArticle> selectShallPublishArticleList(BlogArticle queryArticle);
 
     BlogArticle findOne(Integer id);
 
     BlogArticle save(BlogArticle article);
+
+    void doArticlePublishJob();
+
 }

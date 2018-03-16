@@ -10,6 +10,8 @@ import com.zhang.colas.blog.service.ArticleService;
 import com.zhang.colas.common.PageParams;
 import com.zhang.colas.common.SimpleResult;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +23,8 @@ import java.util.List;
 @Service
 @Transactional
 public class ArticleServiceImpl implements ArticleService {
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(ArticleServiceImpl.class);
 
     @Autowired
     private ArticleRepository articleRepository;
@@ -69,13 +73,6 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public List<BlogArticle> selectShallPublishArticleList(BlogArticle queryArticle) {
-        //todo 查询需要发布的文章
-        List<BlogArticle> list = articleRepository.queryShallPublishArticleList(queryArticle);
-        return list;
-    }
-
-    @Override
     public BlogArticle findOne(Integer id) {
         return articleRepository.findOne(id);
     }
@@ -83,5 +80,24 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public BlogArticle save(BlogArticle article) {
         return articleRepository.save(article);
+    }
+
+    @Override
+    public void doArticlePublishJob() {
+        List<BlogArticle> articleList = articleRepository.queryShallPublishArticleList(new BlogArticle() {
+            {
+                setPublishTime(new Date());
+            }
+        });
+
+        LOGGER.info("要发布的文章数:" + articleList.size());
+        if (articleList.size() > 0) {
+            for (BlogArticle article :
+                    articleList) {
+                article.setArticleStatus(1);
+            }
+            articleRepository.save(articleList);
+        }
+
     }
 }

@@ -9,6 +9,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * @author zxk
+ * @date 2018-03-11 13:12:37
+ */
 @Entity
 @DynamicInsert
 @DynamicUpdate
