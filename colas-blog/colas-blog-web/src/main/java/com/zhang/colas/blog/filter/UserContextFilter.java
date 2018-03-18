@@ -1,5 +1,6 @@
 package com.zhang.colas.blog.filter;
 
+import com.alibaba.dubbo.config.annotation.Reference;
 import com.zhang.colas.blog.entity.BlogUser;
 import com.zhang.colas.blog.service.AuthService;
 import com.zhang.colas.blog.utils.Constants;
@@ -14,7 +15,9 @@ import javax.servlet.ServletResponse;
 
 public class UserContextFilter extends PathMatchingFilter {
 
-    @Autowired
+    @Reference(version = "1.0.0",
+            application = "${dubbo.application.id}",
+            url = "dubbo://localhost:12345")
     private AuthService authService;
 
     @Override

@@ -1,10 +1,10 @@
 package com.zhang.colas.blog.service.impl;
 
+import com.alibaba.dubbo.config.annotation.Service;
 import com.zhang.colas.blog.entity.Attachment;
 import com.zhang.colas.blog.repository.AttachmentRepository;
 import com.zhang.colas.blog.service.AttachmentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -12,7 +12,12 @@ import java.util.List;
  * @author zxk
  * @date 2018-02-05 22:47:00
  */
-@Service
+@Service(
+        version = "1.0.0",
+        application = "${dubbo.application.id}",
+        protocol = "${dubbo.protocol.id}",
+        registry = "${dubbo.registry.id}"
+)
 public class AttachmentServiceImpl implements AttachmentService {
 
     @Autowired

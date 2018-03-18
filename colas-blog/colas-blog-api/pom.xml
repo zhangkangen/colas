@@ -10,43 +10,17 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>colas-blog-api</artifactId>
-
-    <properties>
-        <druid-spring-boot-starter.version>1.1.0</druid-spring-boot-starter.version>
-    </properties>
-
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-aop</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-jdbc</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>com.zhang</groupId>
-            <artifactId>colas-blog-service</artifactId>
+            <artifactId>colas-blog-entity</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-
         <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid-spring-boot-starter</artifactId>
-            <version>${druid-spring-boot-starter.version}</version>
+            <groupId>com.zhang</groupId>
+            <artifactId>colas-commons</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>6.0.6</version>
-        </dependency>
-
     </dependencies>
 
 </project>

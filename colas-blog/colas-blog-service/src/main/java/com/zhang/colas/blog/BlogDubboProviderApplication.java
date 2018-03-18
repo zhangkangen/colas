@@ -4,14 +4,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * 博客系统
- * @author zxk
- * @date 2018-02-04 15:54:56
+ * blog dubbo provider
+ * @author lenovo
  */
 @SpringBootApplication
-public class BlogApplication {
+public class BlogDubboProviderApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(BlogApplication.class, args);
+        SpringApplication.run(BlogDubboProviderApplication.class, args);
     }
 }

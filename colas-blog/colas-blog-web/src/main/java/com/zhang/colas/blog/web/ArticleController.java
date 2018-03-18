@@ -1,5 +1,6 @@
 package com.zhang.colas.blog.web;
 
+import com.alibaba.dubbo.config.annotation.Reference;
 import com.google.gson.Gson;
 import com.hankcs.hanlp.HanLP;
 import com.zhang.colas.blog.bind.annotation.CurrentUser;
@@ -26,7 +27,11 @@ import java.util.List;
 @RequestMapping("article")
 public class ArticleController extends BaseController {
 
-    @Autowired
+    @Reference(
+            version = "1.0.0",
+            application = "${dubbo.application.id}",
+            url = "dubbo://localhost:12345"
+    )
     private ArticleService articleService;
 
     @GetMapping({"index", ""})

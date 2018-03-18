@@ -1,5 +1,6 @@
 package com.zhang.colas.blog.service.impl;
 
+import com.alibaba.dubbo.config.annotation.Service;
 import com.zhang.colas.blog.entity.BlogArticle;
 import com.zhang.colas.blog.entity.BlogArticleTag;
 import com.zhang.colas.blog.entity.BlogTag;
@@ -7,20 +8,23 @@ import com.zhang.colas.blog.entity.BlogUser;
 import com.zhang.colas.blog.repository.ArticleRepository;
 import com.zhang.colas.blog.repository.ArticleTagRepository;
 import com.zhang.colas.blog.service.ArticleService;
-import com.zhang.colas.common.PageParams;
 import com.zhang.colas.common.SimpleResult;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@Service
+@Service(
+        version = "1.0.0",
+        application = "${dubbo.application.id}",
+        protocol = "${dubbo.protocol.id}",
+        registry = "${dubbo.registry.id}"
+)
 @Transactional
 public class ArticleServiceImpl implements ArticleService {
 

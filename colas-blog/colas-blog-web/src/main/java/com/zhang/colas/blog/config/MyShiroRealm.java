@@ -1,5 +1,6 @@
 package com.zhang.colas.blog.config;
 
+import com.alibaba.dubbo.config.annotation.Reference;
 import com.zhang.colas.blog.entity.BlogUser;
 import com.zhang.colas.blog.service.AuthService;
 import org.apache.shiro.authc.*;
@@ -16,7 +17,9 @@ public class MyShiroRealm extends AuthorizingRealm {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MyShiroRealm.class);
 
-    @Autowired
+    @Reference(version = "1.0.0",
+    application = "${dubbo.application.id}",
+    url = "dubbo://localhost:12345")
     private AuthService authService;
 
     private PasswordService passwordService = new DefaultPasswordService();

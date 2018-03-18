@@ -11,6 +11,9 @@
     <packaging>pom</packaging>
     <artifactId>colas-blog</artifactId>
 
+    <properties>
+        <version>1.0-SNAPSHOT</version>
+    </properties>
     <modules>
         <module>colas-blog-web</module>
         <module>colas-blog-service</module>

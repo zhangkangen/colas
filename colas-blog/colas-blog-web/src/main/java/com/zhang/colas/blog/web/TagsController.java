@@ -1,5 +1,6 @@
 package com.zhang.colas.blog.web;
 
+import com.alibaba.dubbo.config.annotation.Reference;
 import com.zhang.colas.blog.bind.annotation.CurrentUser;
 import com.zhang.colas.blog.entity.BlogTag;
 import com.zhang.colas.blog.entity.BlogUser;
@@ -18,7 +19,11 @@ import java.util.Random;
 @RequestMapping("tags")
 public class TagsController {
 
-    @Autowired
+    @Reference(
+            version = "1.0.0",
+            application = "${dubbo.application.id}",
+            url = "dubbo://localhost:12345"
+    )
     private TagsService tagsService;
 
     @GetMapping("list")

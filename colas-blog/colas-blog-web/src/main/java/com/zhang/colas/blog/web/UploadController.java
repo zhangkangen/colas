@@ -1,5 +1,6 @@
 package com.zhang.colas.blog.web;
 
+import com.alibaba.dubbo.config.annotation.Reference;
 import com.zhang.colas.blog.entity.Attachment;
 import com.zhang.colas.blog.enums.AttachmentTypeEnum;
 import com.zhang.colas.blog.service.AttachmentService;
@@ -26,7 +27,11 @@ import java.util.List;
 @RequestMapping("upload")
 public class UploadController extends BaseController {
 
-    @Autowired
+    @Reference(
+            version = "1.0.0",
+            application = "${dubbo.application.id}",
+            url = "dubbo://localhost:12345"
+    )
     private AttachmentService attachmentService;
 
     @PostMapping("uploadImg")

@@ -1,5 +1,7 @@
 package com.zhang.colas.blog.web;
 
+import com.alibaba.dubbo.config.annotation.Reference;
+import com.alibaba.dubbo.config.annotation.Service;
 import com.zhang.colas.blog.entity.BlogUser;
 import com.zhang.colas.blog.service.AuthService;
 import com.zhang.colas.common.SimpleResult;
@@ -9,7 +11,6 @@ import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +23,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class HomeController extends BaseController {
 
-    @Autowired
+    @Reference(version = "1.0.0",
+    application = "${dubbo.application.id}",
+    url = "dubbo://localhost:12345")
     private AuthService authService;
 
     @GetMapping({"", "index"})
