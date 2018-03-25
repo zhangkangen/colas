@@ -1,8 +1,8 @@
 package com.zhang.colas.blog.service.impl;
 
+import com.zhang.colas.blog.api.service.TagsService;
 import com.zhang.colas.blog.entity.BlogTag;
 import com.zhang.colas.blog.mapper.BlogTagMapper;
-import com.zhang.colas.blog.service.TagsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

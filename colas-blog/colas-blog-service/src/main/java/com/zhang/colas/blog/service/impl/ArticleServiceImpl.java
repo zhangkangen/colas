@@ -2,6 +2,7 @@ package com.zhang.colas.blog.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.zhang.colas.blog.api.service.ArticleService;
 import com.zhang.colas.blog.entity.BlogArticle;
 import com.zhang.colas.blog.entity.BlogArticleTag;
 import com.zhang.colas.blog.entity.BlogTag;
@@ -10,7 +11,6 @@ import com.zhang.colas.blog.mapper.BlogArticleMapper;
 import com.zhang.colas.blog.mapper.BlogArticleTagMapper;
 import com.zhang.colas.blog.mapper.BlogTagMapper;
 import com.zhang.colas.blog.mapper.BlogUserMapper;
-import com.zhang.colas.blog.service.ArticleService;
 import com.zhang.colas.common.PageParams;
 import com.zhang.colas.common.SimpleResult;
 import org.apache.commons.lang3.StringUtils;

@@ -1,9 +1,9 @@
 package com.zhang.colas.blog.web;
 
+import com.zhang.colas.blog.api.service.TagsService;
 import com.zhang.colas.blog.bind.annotation.CurrentUser;
 import com.zhang.colas.blog.entity.BlogTag;
 import com.zhang.colas.blog.entity.BlogUser;
-import com.zhang.colas.blog.service.TagsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

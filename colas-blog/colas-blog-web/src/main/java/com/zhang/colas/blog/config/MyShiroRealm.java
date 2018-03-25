@@ -1,7 +1,7 @@
 package com.zhang.colas.blog.config;
 
+import com.zhang.colas.blog.api.service.AuthService;
 import com.zhang.colas.blog.entity.BlogUser;
-import com.zhang.colas.blog.service.AuthService;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authc.credential.DefaultPasswordService;
 import org.apache.shiro.authc.credential.PasswordService;

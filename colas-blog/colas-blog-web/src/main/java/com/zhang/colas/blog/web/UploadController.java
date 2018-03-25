@@ -1,15 +1,14 @@
 package com.zhang.colas.blog.web;
 
+import com.zhang.colas.blog.api.service.AttachmentService;
 import com.zhang.colas.blog.entity.Attachment;
 import com.zhang.colas.blog.enums.AttachmentTypeEnum;
-import com.zhang.colas.blog.service.AttachmentService;
 import com.zhang.colas.common.SimpleResult;
 import com.zhang.colas.common.base.BaseController;
 import com.zhang.colas.core.entity.QiniuUploadResult;
 import com.zhang.colas.core.utils.QiniuUtils;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.FilenameUtils;
-import org.aspectj.weaver.bcel.AtAjAttributes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;

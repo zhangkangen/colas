@@ -1,7 +1,7 @@
 package com.zhang.colas.blog.web;
 
+import com.zhang.colas.blog.api.service.AuthService;
 import com.zhang.colas.blog.entity.BlogUser;
-import com.zhang.colas.blog.service.AuthService;
 import com.zhang.colas.common.SimpleResult;
 import com.zhang.colas.common.base.BaseController;
 import org.apache.shiro.SecurityUtils;

@@ -1,13 +1,12 @@
 package com.zhang.colas.blog.service.impl;
 
+import com.zhang.colas.blog.api.service.AuthService;
 import com.zhang.colas.blog.entity.BlogUser;
 import com.zhang.colas.blog.mapper.BlogUserMapper;
-import com.zhang.colas.blog.service.AuthService;
 import com.zhang.colas.common.SimpleResult;
 import org.apache.shiro.authc.credential.DefaultPasswordService;
 import org.apache.shiro.authc.credential.PasswordService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.cache.CacheProperties;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

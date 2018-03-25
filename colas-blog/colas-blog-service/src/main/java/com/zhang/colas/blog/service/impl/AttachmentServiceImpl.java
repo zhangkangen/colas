@@ -1,8 +1,8 @@
 package com.zhang.colas.blog.service.impl;
 
+import com.zhang.colas.blog.api.service.AttachmentService;
 import com.zhang.colas.blog.entity.Attachment;
 import com.zhang.colas.blog.mapper.AttachmentMapper;
-import com.zhang.colas.blog.service.AttachmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

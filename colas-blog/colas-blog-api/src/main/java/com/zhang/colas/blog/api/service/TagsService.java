@@ -1,4 +1,4 @@
-package com.zhang.colas.blog.service;
+package com.zhang.colas.blog.api.service;
 
 import com.zhang.colas.blog.entity.BlogTag;
 

@@ -1,7 +1,7 @@
 package com.zhang.colas.blog.schedule;
 
+import com.zhang.colas.blog.api.service.ArticleService;
 import com.zhang.colas.blog.entity.BlogArticle;
-import com.zhang.colas.blog.service.ArticleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
