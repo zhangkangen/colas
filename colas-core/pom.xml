@@ -18,6 +18,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <mainClass>com.zhang.colas.blog.BlogApplication</mainClass>
+                    <mainClass>com.zhang.colas.sns.SnsApplication</mainClass>
                 </configuration>
                 <goals>
                     <goal>repackage</goal>

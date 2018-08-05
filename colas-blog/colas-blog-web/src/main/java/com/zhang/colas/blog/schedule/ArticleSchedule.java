@@ -24,7 +24,7 @@ public class ArticleSchedule {
 
     public final static long PUBLISH_INTERVAL = 10 * 60 * 1000;
 
-    @Scheduled(fixedRate = PUBLISH_INTERVAL)
+    @Scheduled(fixedRate = PUBLISH_INTERVAL, initialDelay = 5 * 1000)
     public void articlePublishJob() {
         LOGGER.info("文章定时发布定时器开始执行");
         //todo 获取要发布的定时文章
